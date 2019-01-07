@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
+
+        <script src="../../resources/sap-ui-core.js"
+                id="sap-ui-bootstrap"
+                data-sap-ui-libs="sap.m"
+                data-sap-ui-preload="async"
+                data-sap-ui-xx-bindingSyntax="complex"
+                data-sap-ui-resourceroots = '{"webapp": "./"}'
+                data-sap-ui-theme="sap_bluecrystal">
+        </script>
+
+        <script>
+/*            
+	        var sServiceUrl = "http://services.odata.org/V3/Northwind/Northwind.svc/";
+	        var oModel = new sap.ui.model.odata.v2.ODataModel(sServiceUrl);         
+	
+	        sap.ui.getCore().setModel(oModel);
+	
+	        oModel.read("/Products(1)", {
+	            success: function(oData, oResponse){
+	                console.log(oData);
+	                console.log(oResponse);
+	            },
+	            error: function(oError){
+	                console.log(oError);
+	            }
+	        })
+*/
+
+			sap.ui.getCore().attachInit(function(){
+			    sap.ui.require([
+			            "sap/ui/model/odata/v2/ODataModel"
+			        ], 
+			        
+			        function(ODataModel){
+			    	
+				        //var sServiceUrl = "https://services.odata.org/V2/Northwind/Northwind.svc/";
+				        var sServiceUrl = "https://cors-anywhere.herokuapp.com/https://services.odata.org/V2/Northwind/Northwind.svc/";
+				        var oModel = new sap.ui.model.odata.v2.ODataModel(sServiceUrl);         
+				
+				        sap.ui.getCore().setModel(oModel);
+				
+				        oModel.read("/Products(1)", {
+				            success: function(oData, oResponse){
+				                console.log(oData);
+				                console.log(oResponse);
+				            },
+				            error: function(oError){
+				                console.log(oError);
+				            }
+				        })
+
+			        }
+			    );
+			});
+        </script>
+
+    </head>
+    <body class="sapUiBody" role="application">
+        <div id="content" class="sapUiResponsiveMargin"></div>
+    </body>
+</html>

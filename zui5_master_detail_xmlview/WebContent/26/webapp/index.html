@@ -1,0 +1,190 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
+
+        <script src="../../resources/sap-ui-core.js"
+                id="sap-ui-bootstrap"
+                data-sap-ui-libs="sap.m"
+                data-sap-ui-theme="sap_bluecrystal">
+        </script>
+        <!-- only load the mobile lib "sap.m" and the "sap_bluecrystal" theme -->
+
+        <script>
+            var sServiceUrl = "https://cors-anywhere.herokuapp.com/" 
+                            + "http://services.odata.org/V2/(S(p3urukx4t2omvzrze3pxn2pz))/OData/OData.svc/";
+                        
+            // 读取供应商
+            function readSupplier(){
+                var oModel = new sap.ui.model.odata.v2.ODataModel(sServiceUrl);     
+                
+                function fnSuccess(oData, oResponse){
+                    console.log("Response", oResponse);
+                    console.log("Data", oData);
+                }
+                
+                function fnError(oError){
+                    console.log("Error", oError);
+                }
+                
+                // 读取存在的 supplier
+                oModel.read("/Suppliers(0)", {
+                    success: fnSuccess,
+                    error: fnError
+                });
+                
+                // 读取不存在的 supplier
+                oModel.read("/Suppliers(12222)", {
+                        success: fnSuccess,
+                        error: fnError
+                });
+            }
+            
+            // 读取 OData model 缓存的数据
+            function getData(){        
+                var oModel = new sap.ui.model.odata.v2.ODataModel(sServiceUrl);     
+                
+                oModel.read("/Suppliers", {
+                    
+                    success: function(oData, oResponse){
+                        // 两种方法读取 supplier name
+                        var oSupplier = oModel.getData("/Suppliers(1)");
+                        console.log(oSupplier.Name);
+                        console.log(oModel.getProperty("/Suppliers(1)/Name"));
+                    },
+                    
+                    error: function(oError){
+                        console.log("Error", oError);
+                    }
+                });         
+            }
+
+            // 创建供应商
+            function createSupplier(){
+                var oModel = new sap.ui.model.odata.v2.ODataModel(sServiceUrl);
+                oModel.setUseBatch(false);
+                oModel.setHeaders({
+                    "Content-type":"application/json"
+                });
+                
+                function fnSuccess(oData, oResponse){
+                    console.log("Response", oResponse);
+                }
+                
+                function fnError(oError){
+                    console.log("Error", oError);
+                }
+                
+                var oNewSupplier = {
+                        "ID": 101,
+                        "Name": "Stone测试供应商#101",
+                        "Address": {
+                          "Street": "三角湖路",
+                          "City": "武汉",
+                          "State": "HB",
+                          "ZipCode": "430060",
+                          "Country": "中国"
+                        }
+                    };
+                
+                oModel.create("/Suppliers", oNewSupplier, {
+                    success: fnSuccess,
+                    error: fnError
+                });             
+            }
+            
+            // 修改供应商
+            function editSupplier(){
+                var oModel = new sap.ui.model.odata.v2.ODataModel({
+                    serviceUrl: sServiceUrl,
+                    headers: {
+                        "If-match": "*"
+                    }});
+                
+                var oChanges = {                        
+                        "Name": "Stone测试供应商-#101",
+                        "Address": {
+                          "Street": "博学路",
+                          "City": "武汉",
+                          "State": "HB",
+                          "ZipCode": "430060",
+                          "Country": "China"
+                        }
+                    };
+                oModel.update("/Suppliers(101)", oChanges, {
+                    success: function(oData, oResponse){
+                        console.log("Response", oResponse);
+                    },
+                    error: function(oError){
+                        console.log("Error", oError);
+                    }
+                });
+            }
+            
+            // 删除供应商
+            function deleteSupplier(){  
+                var oModel = new sap.ui.model.odata.v2.ODataModel(sServiceUrl);     
+                
+                // set headers
+                oModel.setHeaders({
+                    "If-match": "*"
+                });
+                
+                oModel.remove("/Suppliers(101)", {
+                    success: function (oData, oResponse){
+                        console.log(oResponse);
+                    }, 
+                    error: function (oError){
+                        console.log(oError);
+                    }
+                });             
+            }           
+
+        
+            sap.ui.getCore().attachInit(function(){                     
+                var oReadButton = new sap.m.Button({
+                    text: "Read",
+                    press: readSupplier
+                });
+                
+                var oGetDataButton = new sap.m.Button({
+                    text: "Get data",
+                    press: getData
+                });
+                
+                var oCreateButton = new sap.m.Button({
+                    text: "Create",
+                    press: createSupplier
+                });
+                
+                var oEditButton = new sap.m.Button({
+                    text: "Edit",
+                    press: editSupplier
+                });
+                
+                var oDeleteButton = new sap.m.Button({
+                    text: "Delete",
+                    press: deleteSupplier
+                });
+                
+                var oPage = new sap.m.Page({
+                    title: "基于oData Model的增删改查",
+                    content: [oReadButton, oGetDataButton, oCreateButton, oEditButton, oDeleteButton]
+                });
+                
+                var oApp = new sap.m.App({
+                    initialPage: oPage
+                });
+                
+                oApp.addPage(oPage);
+                oApp.placeAt("content");                
+            });         
+            
+        </script>
+
+    </head>
+    <body class="sapUiBody" role="application">
+        <div id="content"></div>
+    </body>
+</html>
