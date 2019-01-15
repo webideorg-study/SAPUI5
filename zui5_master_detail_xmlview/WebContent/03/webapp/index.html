@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
+
+        <!-- Please change the file position of sap-ui-cor.js according to environment -->
+        <script src="../../resources/sap-ui-core.js"
+                id="sap-ui-bootstrap"
+                data-sap-ui-libs="sap.m"
+                data-sap-ui-xx-bindingSyntax="complex"
+                data-sap-ui-theme="sap_bluecrystal">
+        </script>
+
+        <script>
+        
+	        function initialization() {
+	            
+	            var oLabel = new sap.m.Label({text: "Do you like basketball?"});
+	            
+	            var oRadioBtn1 = new sap.m.RadioButton({text: "Yes"});
+	            var oRadioBtn2 = new sap.m.RadioButton({text: "No"});
+	            
+	            /*
+	            var oRadioBtnGrp = new sap.m.RadioButtonGroup({
+	                columns: 2,
+	                ariaLabelledBy: oLabel,
+	                buttons: [oRadioBtn1, oRadioBtn2]
+	            });
+	            */
+	            
+	            var oRadioBtnGrp = new sap.m.RadioButtonGroup({columns: 2});
+	            oRadioBtnGrp.addAriaLabelledBy(oLabel);
+	            oRadioBtnGrp.addButton(oRadioBtn1);
+	            oRadioBtnGrp.addButton(oRadioBtn2);
+	            
+	            
+	            oLabel.placeAt("content");
+	            oRadioBtnGrp.placeAt("content");
+	        };
+	        
+	        sap.ui.getCore().attachInit(initialization);
+
+        </script>
+
+    </head>
+    <body class="sapUiBody" role="application">
+        <div id="content"></div>
+    </body>
+</html>

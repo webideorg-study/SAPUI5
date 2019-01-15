@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
+
+        <script src="../../resources/sap-ui-core.js"
+                id="sap-ui-bootstrap"
+                data-sap-ui-libs="sap.m, sap.ui.layout"
+                data-sap-ui-theme="sap_bluecrystal">
+        </script>       
+        
+        <!-- Application area -->
+        <script>
+            function onButtonPressed(oEvent) {
+                var sId = oEvent.getSource().getId();
+                var oCore = sap.ui.getCore();
+                
+                if (sId == "btn1") {
+                    oCore.applyTheme("sap_bluecrystal");
+                } else if (sId == "btn2"){
+                    oCore.applyTheme("sap_platium");
+                } else if (sId == "btn3") {
+                    oCore.applyTheme("sap_goldreflection");
+                } else if (sId == "btn4") {
+                    oCore.applyTheme("sap_hcb");
+                }
+            }
+            
+            function display() {
+                var oButton1 = new sap.m.Button("btn1", {
+                    text: "Blue Crystal",
+                    press: onButtonPressed
+                });
+                
+                var oButton2 = new sap.m.Button("btn2", {
+                    text: "Platium",
+                    press: onButtonPressed
+                });
+                
+                var oButton3 = new sap.m.Button("btn3", {
+                    text: "Gold Reflection",
+                    press: onButtonPressed
+                });
+                
+                var oButton4 = new sap.m.Button("btn4", {
+                    text: "High Contrast Black",
+                    press: onButtonPressed
+                });
+                
+                // Grid layout占页面60%，居中
+                new sap.ui.layout.Grid({
+                    width: "60%",
+                    position: sap.ui.layout.GridPosition.Center,
+                    content: [oButton1, oButton2, oButton3, oButton4]
+                }).placeAt("content");
+            }
+            
+            sap.ui.getCore().attachInit(display);
+        </script>
+
+    </head>
+    <body class="sapUiBody sapUiResponsiveMargin" role="application">
+        <div id="content"></div>
+    </body>
+</html>

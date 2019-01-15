@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
+
+        <script src="../../resources/sap-ui-core.js"
+                id="sap-ui-bootstrap"
+                data-sap-ui-libs="sap.m"
+                data-sap-ui-theme="sap_bluecrystal"
+                data-sap-ui-resourceroots='{"views_js": "./views_js/"}'>
+        </script>
+        
+        <!-- Application area -->
+        <script>
+	        //三种方法来声明文件的位置，用来确定 view 和 controller 文件的名称和位置
+        	
+	        //第一种
+	        //sap.ui.localResources("views_js");
+	        
+	        //第二种
+	        //data-sap-ui-resourceroots='{"views_js": "./views_js"}'
+	        
+	        //第三种
+	        //jQuery.sap.registerModulePath("views_js", "./views_js");
+	        
+	        var app = new sap.m.App({initialPage:"idmaster1"});
+	        var page = sap.ui.view({
+	            id:"idmaster1", 
+	            viewName:"views_js.master", 
+	            type:sap.ui.core.mvc.ViewType.JS
+	        });
+	        
+	        app.addPage(page);
+	        app.placeAt("content");
+        </script>
+
+    </head>
+    <body class="sapUiBody" role="application">
+        <div id="content"></div>
+    </body>
+</html>
