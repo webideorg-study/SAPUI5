@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
+
+        <script src="../../resources/sap-ui-core.js"
+                id="sap-ui-bootstrap"
+                data-sap-ui-libs="sap.m, sap.ui.table"
+                data-sap-ui-theme="sap_bluecrystal"
+                data-sap-ui-resourceroots='{"suppliers":"./suppliers"}'>
+        </script>
+
+        <script>
+        
+            //jQuery.sap.registerModulePath("suppliers", "./suppliers");
+                        
+            var oApp = new sap.m.App({initialPage: "firstPage"});
+            var oFirstPage = sap.ui.view({
+                id: "firstPage",
+                viewName: "suppliers.supplieroverview",
+                type: sap.ui.core.mvc.ViewType.XML
+            });
+            
+            oApp.addPage(oFirstPage);
+            oApp.placeAt("content");
+            
+        </script>
+
+    </head>
+    <body class="sapUiBody SapUiResponsiveMargin" role="application">
+        <div id="content"></div>
+    </body>
+</html>

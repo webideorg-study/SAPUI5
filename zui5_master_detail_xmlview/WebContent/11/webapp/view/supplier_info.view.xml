@@ -1,0 +1,29 @@
+<core:View xmlns:core="sap.ui.core" 
+           xmlns:mvc="sap.ui.core.mvc" 
+           xmlns:l="sap.ui.layout"
+           xmlns="sap.m"
+           xmlns:html="http://www.w3.org/1999/xhtml">
+    
+    <Panel headerText="供应商信息" class="sapUiResponsiveMargin" width="auto">
+        <content>
+            <Text text="Supplier Id:" class="sapUiSmallMargin" />
+            <Text text="{/Suppliers/0/ID}" width="5px" class="sapUiSmallMargin" />
+            <Text text="Supplier name:" class="sapUiSmallMargin" />
+            <Text text="{/Suppliers/0/Name}" width="100px" class="sapUiSmallMargin" />
+        </content>
+    </Panel>
+    
+    <Panel class="sapUiResponsiveMargin" width="auto">
+        <content>
+            <l:VerticalLayout>
+                <Label text="Address:" class="sapUiSmallMargin" />
+                <Text text="{/Suppliers/0/Address/Street},
+                            {/Suppliers/0/Address/ZipCode} {/Suppliers/0/Address/City},
+                            {/Suppliers/0/Address/State} {/Suppliers/0/Address/Country}"
+                      width="100px"
+                      class="sapUiSmallMargin" />
+            </l:VerticalLayout>
+        </content>
+    </Panel>
+    
+</core:View>

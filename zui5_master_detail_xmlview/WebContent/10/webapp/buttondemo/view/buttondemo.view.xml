@@ -1,0 +1,30 @@
+<!--<core:View 
+        xmlns="sap.m"
+        xmlns:core="sap.ui.core" 
+        xmlns:mvc="sap.ui.core.mvc"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        controllerName="buttondemo.controller.buttondemo" >
+        
+    <Page title="Button using XMLView Demo">
+        <content>
+            <Button text="Click me." press="onButtonPressed" />
+        </content>
+    </Page>
+</core:View>
+-->
+
+<mvc:View xmlns:core="sap.ui.core"
+          xmlns:mvc="sap.ui.core.mvc"
+          xmlns="sap.m"
+          xmlns:html="http://www.w3.org/1999/xhtml"
+	      controllerName="buttondemo.controller.buttondemo">
+	<App>
+		<pages>
+			<Page title="Button using XMLView Demo" id="title">
+				<content>
+					<Button xmlns="sap.m" text="Test: Click me." id="button" press="onButtonPressed"/>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

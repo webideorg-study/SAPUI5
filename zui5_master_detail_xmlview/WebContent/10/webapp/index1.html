@@ -8,7 +8,7 @@
 		        id="sap-ui-bootstrap"
 		        data-sap-ui-libs="sap.m"
 		        data-sap-ui-theme="sap_bluecrystal"
-		        data-sap-ui-resourceroots='{"buttondemo":"./buttondemo"}'>
+		        data-sap-ui-resourceroots='{"buttondemo":"./buttondemo/"}'>
 		</script>
         
         <!-- Application area -->
@@ -24,11 +24,11 @@
 	        //第三种
 	        //jQuery.sap.registerModulePath("views_js", "./views_js");
 	        
-	        var app = new sap.m.App({initialPage:"masterpage"});
+ 	        var app = new sap.m.App({initialPage:"masterpage"});
 	        var page = sap.ui.view({
 	            id:"masterpage", 
 	            viewName:"buttondemo.view.buttondemo",
-	            type: sap.ui.core.mvc.ViewType.JS
+	            type: sap.ui.core.mvc.ViewType.XML
 	        });
 			
 	        app.addPage(page);
