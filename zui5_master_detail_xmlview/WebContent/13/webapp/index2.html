@@ -1,0 +1,111 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
+
+        <script src="../../resources/sap-ui-core.js"
+                id="sap-ui-bootstrap"
+                data-sap-ui-libs="sap.m, sap.ui.layout"
+                data-sap-ui-theme="sap_bluecrystal"
+                data-sap-ui-compactVersion="Edge"
+                data-sap-ui-bindingSyntax="complex">
+        </script>
+        
+        <script>
+        
+			/**
+	         * Aggregation binding using factory function
+	         * Demo written by Stone Wang
+	         */
+			 
+	        // application data
+	        var oAppData = [
+	            { articleName: "SAP成本计算流程", type: "Locked", hits: 1048 },
+	            { articleName: "SAP物料价格修改", type: "Draft", hits: 58 },
+	            { articleName: "2017年SAP技术方向", type: "Unsaved", hits: 320},
+	            { articleName: "《人类简史》读后感", type: "Flagged", hits: 90 },
+	            { articleName: "《Core Java》第十版出版", type: "Favorite" , hits: 66}
+	        ];
+			
+	        var oModel = new sap.ui.model.json.JSONModel();
+	        oModel.setData({ modelData: oAppData });
+			
+	        sap.ui.getCore().setModel(oModel);
+			
+	        // 定义Column数组，包含3列
+	        var aColumns = [
+	            new sap.m.Column({
+	                header : new sap.m.Label({text : "文章"})
+	            }),     
+	            new sap.m.Column({
+	                header : new sap.m.Label({text : "标记"})
+	            }),
+	            new sap.m.Column({
+	                header : new sap.m.Label({text: "阅读次数"})
+	            })
+	            ]
+				
+			
+	        // Table control
+	        var oTable = new sap.m.Table({
+	            columns : aColumns  
+	        });
+			
+			
+	        // 使用Factory function实现动态的数据显示
+	        oTable.bindAggregation("items", "/modelData", function(sId, oContext){
+	            var oColumnListItem = new sap.m.ColumnListItem(sId, {vAlign: "Middle"});
+	            oColumnListItem.addCell(new sap.m.Text({text: "{articleName}"}));
+	            oColumnListItem.addCell(new sap.m.ObjectMarker({type: "{type}"}));
+	            
+	            var oHits = oContext.getProperty("hits");   
+	            if (oHits >= 100) {
+	                oColumnListItem.addCell(
+	                    new sap.ui.layout.VerticalLayout({
+	                        content: [
+	                           new sap.m.Text({text: "{hits}"}),
+	                           new sap.m.ObjectStatus({text:"热门", state:"Success"})
+	                        ]
+	                    })
+	                )
+	            } else {
+	                oColumnListItem.addCell(
+	                    new sap.m.Text({text: "{hits}"})
+	                )       
+	            }
+	            
+	            return oColumnListItem;
+	        });
+			
+			
+	        var oTablePanel = new sap.m.Panel({
+	            headerText: "文章列表",
+	            content: oTable
+	        });
+			
+	        var oStandalonePanel = new sap.m.Panel("standalone-panel", {
+	            headerText: "图例：",
+	            content: [
+	                new sap.m.ObjectMarker({type: sap.m.ObjectMarkerType.Locked}),
+	                new sap.m.ObjectMarker({type: sap.m.ObjectMarkerType.Flagged}),
+	                new sap.m.ObjectMarker({type: sap.m.ObjectMarkerType.Favorite}),
+	                new sap.m.ObjectMarker({type: sap.m.ObjectMarkerType.Draft}),
+	                new sap.m.ObjectMarker({type: sap.m.ObjectMarkerType.Unsaved})
+	            ]
+	        });
+			
+	        var oApp = new sap.m.App({  initialPage: "page" });
+	        var oPage = new sap.m.Page("page", {
+	            title:"Aggregation binding demo",
+	            content: [oTablePanel, oStandalonePanel]
+	        });
+	        oApp.addPage(oPage).placeAt("content");
+	        
+        </script>
+
+    </head>
+    <body class="sapUiBody sapUiResponsiveMargin" role="application">
+        <div id="content"></div>
+    </body>
+</html>

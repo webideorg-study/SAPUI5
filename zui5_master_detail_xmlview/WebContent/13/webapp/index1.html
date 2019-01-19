@@ -28,9 +28,10 @@
 	        ];
 	        
 	        var oModel = new sap.ui.model.json.JSONModel();
-	        //oModel.setData({modelData: oAppData});
+	        oModel.setData({modelData: oAppData});
 	        //oModel.setData({justTestData: oAppData});
-	        oModel.setData(oAppData);
+	        //oModel.setData(oAppData);
+	        
 	        sap.ui.getCore().setModel(oModel);
 	        
 	        // 定义一个包含包含3列的数组
@@ -78,16 +79,28 @@
 	            ]
 	        });
 	        
-	        // 聚合绑定1--在构造器的setting中设置
-	        var oTable = new sap.m.Table({
+	        //聚合绑定1--在构造器的setting中设置
+	        /*var oTable = new sap.m.Table({
 	            columns : aColumns,
+	            //items: {path: "/modelData", template: oColumnListItem}
 	            //items: {path: "/justTestData", template: oColumnListItem}
 	            items: {path: "/", template: oColumnListItem}
-	        });
+	        });*/
 	        
-	        // 聚合绑定2--使用sap.ui.base.ManagedObject的bindAggregation()方法
-	        // 聚合绑定3--使用控件的类型化绑定方法
+	        //聚合绑定2--使用sap.ui.base.ManagedObject的bindAggregation()方法
+            /*var oTable = new sap.m.Table({
+			    columns: aColumns
+			});
+			//oTable.bindAggregation("items", "/modelData", oColumnListItem);
+			oTable.bindAggregation("items", {path: "/modelData", template: oColumnListItem});*/
 	        
+	        //聚合绑定3--使用控件的类型化绑定方法
+	        var oTable = new sap.m.Table({
+			    columns: aColumns
+			});
+			//oTable.bindItems("/modelData", oColumnListItem);
+			oTable.bindItems({path: "/modelData", template: oColumnListItem});
+
 	        var oTablePanel = new sap.m.Panel({
 	            headerText: "文章列表",
 	            content: oTable
