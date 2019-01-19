@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
+
+        <script src="../../resources/sap-ui-core.js"
+                id="sap-ui-bootstrap"
+                data-sap-ui-libs="sap.m, sap.ui.layout"
+                data-sap-ui-theme="sap_bluecrystal"
+                data-sap-ui-compactVersion="Edge"
+                data-sap-ui-bindingSyntax="complex">
+        </script>       
+        
+        <script>
+        
+	        /**
+	         * ObjectIdentifier
+	         * Stone Wang Demo
+	         */
+	        function onTitlePress(oEvent){
+	            jQuery.sap.require("sap.m.MessageBox");
+	            var sName = oEvent.getSource().getTitle();
+	            sap.m.MessageBox.information(sName);
+	        }
+	        
+	        var oAppData = {            
+	            "SupplierId": "1",
+	            "SupplierName": "ABC新能源汽车有限公司",
+	            "Profile": "生产和销售新能源汽车及备件"
+	        };
+	        
+	        var oModel = sap.ui.model.json.JSONModel();
+	        oModel.setData(oAppData);
+	        sap.ui.getCore().setModel(oModel);
+	        
+	        var oObjIdentifier = new sap.m.ObjectIdentifier({
+	            title: "{/SupplierName}",
+	            text: "{/Profile}",
+	            titleActive: true,
+	            titlePress: onTitlePress
+	        });
+	        
+	        oObjIdentifier.placeAt("content");
+
+        </script>
+
+    </head>
+    <body class="sapUiBody sapUiResponsiveMargin" role="application">
+        <div id="content"></div>
+    </body>
+</html>

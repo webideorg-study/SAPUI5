@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
+
+        <script src="../../resources/sap-ui-core.js"
+                id="sap-ui-bootstrap"
+                data-sap-ui-libs="sap.m, sap.ui.layout"
+                data-sap-ui-theme="sap_bluecrystal"
+                data-sap-ui-compactVersion="Edge"
+                data-sap-ui-bindingSyntax="complex">
+        </script>       
+        
+        <script>
+        
+	        /**
+	         * Object Marker
+	         * Demo written by Stone Wang
+	         */
+	        function onMarkerPressed(oEvent){
+	            sap.m.MessageToast.show(oEvent.getParameter("type") + " was pressed.");
+	        }
+	
+	        var oPanel = new sap.m.Panel({
+	            headerText: "图例",
+	            content: [
+	                new sap.m.ObjectMarker({
+	                    type: sap.m.ObjectMarkerType.Draft
+	                }),     
+	                
+	                new sap.m.ObjectMarker().setType(sap.m.ObjectMarkerType.Favorite),
+	                
+	                new sap.m.ObjectMarker({
+	                    type: sap.m.ObjectMarkerType.Flagged,
+	                    press: onMarkerPressed
+	                }),
+	                
+	                new sap.m.ObjectMarker({
+	                    type: sap.m.ObjectMarkerType.Locked,
+	                    press: function(oEvent){
+	                        sap.m.MessageToast.show(oEvent.getParameter("type"));
+	                    }
+	                }),
+	                
+	                new sap.m.ObjectMarker().setType(sap.m.ObjectMarkerType.LockedBy),
+	                new sap.m.ObjectMarker().setType(sap.m.ObjectMarkerType.Unsaved),
+	                new sap.m.ObjectMarker().setType(sap.m.ObjectMarkerType.UnsavedBy)
+	            ]
+	        }).placeAt("content");
+        
+        </script>
+
+    </head>
+    <body class="sapUiBody sapUiResponsiveMargin" role="application">
+        <div id="content"></div>
+    </body>
+</html>

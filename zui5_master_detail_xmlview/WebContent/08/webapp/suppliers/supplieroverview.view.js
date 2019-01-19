@@ -18,26 +18,32 @@ sap.ui.jsview("suppliers.supplieroverview", {
             new sap.ui.table.Column({
                 label: new sap.m.Label({text:"编码"}),
                 //template: new sap.m.Text().bindProperty("text", "ID"),
-                template: new sap.m.Text().bindProperty("text", {
+                
+                /*template: new sap.m.Text().bindProperty("text", {
                                                path: "ID",
                                                mode: sap.ui.model.BindingMode.OneWay
-                                           }),
+                                           }),*/
+                
                 //template: new sap.m.Text().bindText("ID"),
+                template: new sap.m.Text({text: "{ID}"}),
                 sortProperty: "ID",
                 width: "100px"
             }),
             new sap.ui.table.Column({
                 label: new sap.m.Label({text:"名称"}),
                 //template: new sap.m.Text().bindProperty("text", "Name"),
-                template: new sap.m.Text().bindProperty("text", {
+                
+                /*template: new sap.m.Text().bindProperty("text", {
                                                path: "Name",
                                                mode: sap.ui.model.BindingMode.OneWay
-                                           }),
+                                           }),*/
+                
                 //template: new sap.m.Text().bindText("Name"),
+                template: new sap.m.Text({text: "{Name}"}),
                 sortProperty: "Name",
                 width: "150px"
             })
-        ];  
+        ];
         
         var oTable = new sap.ui.table.Table({
             width: "90%",

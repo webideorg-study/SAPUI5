@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
+
+        <script src="../../resources/sap-ui-core.js"
+                id="sap-ui-bootstrap"
+                data-sap-ui-libs="sap.m, sap.ui.layout"
+                data-sap-ui-theme="sap_bluecrystal"
+                data-sap-ui-compactVersion="Edge"
+                data-sap-ui-bindingSyntax="complex">
+        </script>       
+        
+        <script>
+        
+	        /**
+	         * ObjectAttribute
+	         * Stone Wang Demo
+	         */
+	        function onAttributePressed(oEvent){
+	            jQuery.sap.require("sap.m.MessageBox");
+	            var sMessage = oEvent.getSource().getTitle() 
+	                + ":" + oModel.getProperty("/Price");
+	            sap.m.MessageBox.information(sMessage);
+	        }
+	
+	        var oAppData = {            
+	            "ProductId": "1",
+	            "ProductName": "Sony PST-1",
+	            "Price": "5890",
+	            "Currency": "CNY"
+	        };
+	
+	        //var oModel = sap.ui.model.json.JSONModel();
+	        //oModel.setData(oAppData);
+			
+	        var oModel = sap.ui.model.json.JSONModel(oAppData);
+			
+	        sap.ui.getCore().setModel(oModel);
+	
+	        var oObjAttribute = new sap.m.ObjectAttribute({
+	            title: "{/ProductName}",
+	            text: "{/ProductId}",
+	            active: true,
+	            press: onAttributePressed
+	        });
+	
+	        oObjAttribute.placeAt("content");
+
+        </script>
+
+    </head>
+    <body class="sapUiBody sapUiResponsiveMargin" role="application">
+        <div id="content"></div>
+    </body>
+</html>

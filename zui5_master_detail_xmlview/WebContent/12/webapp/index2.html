@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
+
+        <script src="../../resources/sap-ui-core.js"
+                id="sap-ui-bootstrap"
+                data-sap-ui-libs="sap.m, sap.ui.layout"
+                data-sap-ui-theme="sap_bluecrystal"
+                data-sap-ui-compactVersion="Edge"
+                data-sap-ui-bindingSyntax="complex">
+        </script>       
+        
+        <script>
+        
+	        /**
+	         * ObjectNumber
+	         * Stone Wang Demo
+	         */
+	        var oAppData = {            
+	            "ProductId": "1",
+	            "ProductName": "Sony DPT-S1",
+	            "Price": "5890",
+	            "Currency": "CNY"
+	        };
+	                    
+	        var oModel = sap.ui.model.json.JSONModel();
+	        oModel.setData(oAppData);
+	
+	        sap.ui.getCore().setModel(oModel);
+	
+	        var oProduct = new sap.m.ObjectIdentifier({
+	            title: "{/ProductName}"
+	        });
+	
+	        var oNumber1 = new sap.m.ObjectNumber({
+	            number: "{/Price}",
+	            numberUnit: "{/Currency}"
+	        });
+	        var oNumber2 = new sap.m.ObjectNumber({
+	            number: "{/Price}",
+	            numberUnit: "{/Currency}",
+	            state: "Error"
+	        });         
+	        var oNumber3 = new sap.m.ObjectNumber({
+	            number: "{/Price}",
+	            numberUnit: "{/Currency}",
+	            state: "Warning"
+	        });
+	        var oNumber4 = new sap.m.ObjectNumber({
+	            number: "{/Price}",
+	            numberUnit: "{/Currency}",
+	            state: "Success"
+	        });
+	
+	        new sap.ui.layout.VerticalLayout({
+	            content: [oProduct, oNumber1, oNumber2, oNumber3, oNumber4]
+	        }).placeAt("content");
+
+        </script>
+
+    </head>
+    <body class="sapUiBody sapUiResponsiveMargin" role="application">
+        <div id="content"></div>
+    </body>
+</html>

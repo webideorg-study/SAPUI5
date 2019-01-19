@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
+
+        <script src="../../resources/sap-ui-core.js"
+                id="sap-ui-bootstrap"
+                data-sap-ui-libs="sap.m, sap.ui.layout"
+                data-sap-ui-theme="sap_bluecrystal"
+                data-sap-ui-compactVersion="Edge"
+                data-sap-ui-bindingSyntax="complex">
+        </script>
+        
+        <script>
+        
+	        /**
+	         * Object Status
+	         * Demo written by Stone Wang
+	         */
+	        new sap.ui.layout.VerticalLayout({
+	            content: [
+/* 	                new sap.m.ObjectStatus({
+	                    text: "Normal message",
+	                    state: "None"
+	                }),
+	                
+	                new sap.m.ObjectStatus({
+	                    text: "Normal message with icon",
+	                    state: "None",
+	                    icon: "sap-icon://accept"
+	                }),
+	                
+	                new sap.m.ObjectStatus({
+	                    text: "Error message",
+	                    state: "Error"
+	                }),
+	                
+	                new sap.m.ObjectStatus({
+	                    text: "Error message with icon",
+	                    state: "Error",
+	                    icon: "sap-icon://alert"
+	                }),
+	                
+	                new sap.m.ObjectStatus({    
+	                    text: "Purchase Order was created successfully.",
+	                    state: "Success",
+	                    icon: "sap-icon://save"
+	                }) */
+	                
+	                new sap.m.ObjectStatus({
+	                    text: "Message",
+	                    state: sap.ui.core.ValueState.Error
+	                }),
+	                
+	                new sap.m.ObjectStatus({
+	                    text: "Message",
+	                    state: sap.ui.core.ValueState.Information
+	                }),
+	                
+	                new sap.m.ObjectStatus({
+	                    text: "Message",
+	                    state: sap.ui.core.ValueState.None
+	                }),
+	                
+	                new sap.m.ObjectStatus({
+	                    text: "Message",
+	                    state: sap.ui.core.ValueState.Success
+	                }),
+	                
+	                new sap.m.ObjectStatus({
+	                    text: "Message",
+	                    state: sap.ui.core.ValueState.Warning
+	                })
+	                
+	            ]
+	        }).placeAt("content");
+        
+        </script>
+
+    </head>
+    <body class="sapUiBody sapUiResponsiveMargin" role="application">
+        <div id="content"></div>
+    </body>
+</html>

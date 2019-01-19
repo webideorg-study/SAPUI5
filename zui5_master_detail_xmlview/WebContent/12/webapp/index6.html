@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
+
+        <script src="../../resources/sap-ui-core.js"
+                id="sap-ui-bootstrap"
+                data-sap-ui-libs="sap.m, sap.ui.layout"
+                data-sap-ui-theme="sap_bluecrystal"
+                data-sap-ui-compactVersion="Edge"
+                data-sap-ui-bindingSyntax="complex">
+        </script>
+        
+        <script>
+
+	        /**
+	         * Object Header
+	         * Demo written by Stone Wang
+	         */
+	        // 定义Application data
+	        var oAppData = {            
+	            "Product": {
+	                "Name": "Power Projector 4713",
+	                "Price": "856.49",
+	                "Currency": "CNY",
+	                "Width": "51",
+	                "Depth": "42",
+	                "Height": "18",
+	                "DimUnit": "cm",
+	                "Description": "A very powerful projector with special features for Internet usability, USB"
+	            }
+	        };
+	
+	        // 绑定Model与Data
+	        var oModel = sap.ui.model.json.JSONModel();
+	        oModel.setData(oAppData);
+	
+	        // 设置Model到Core对象，从而使model在Application中可见
+	        sap.ui.getCore().setModel(oModel);
+	
+	        // 使用ObjectHeader显示产品信息
+	        new sap.m.ObjectHeader({
+	            title: "{/Product/Name}",
+	            number: "{/Product/Price}",
+	            numberUnit: "{/Product/Currency}",
+	            
+	            statuses: [
+	                new sap.m.ObjectStatus({text:"Some damaged", state: "Error"}),
+	                new sap.m.ObjectStatus({text:"In stock", state: "Success"}),
+	                new sap.m.ObjectStatus({text:"京东", state: sap.ui.core.ValueState.Information})
+	            ],
+	            
+	            attributes: [
+	                new sap.m.ObjectAttribute({
+	                	text: "{/Product/Width} x {/Product/Depth} x {/Product/Height} {/Product/DimUnit}",
+	                	textDirection: sap.ui.core.TextDirection.LTR,
+	                	active: true
+	                }),
+	                new sap.m.ObjectAttribute({
+	                    text: "{/Product/Description}"
+	                }),
+	                new sap.m.ObjectAttribute({
+	                    text: "www.jd.com",
+	                    active: true,
+	                    press: function(oEvent){
+	                        sap.m.URLHelper.redirect("http://www.jd.com", true);
+	                    }
+	                })
+	            ]
+	        }).placeAt("content");
+
+        </script>
+
+    </head>
+    <body class="sapUiBody sapUiResponsiveMargin" role="application">
+        <div id="content"></div>
+    </body>
+</html>

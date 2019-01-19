@@ -1,0 +1,120 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
+
+        <script src="../../resources/sap-ui-core.js"
+                id="sap-ui-bootstrap"
+                data-sap-ui-libs="sap.m, sap.ui.layout"
+                data-sap-ui-theme="sap_bluecrystal"
+                data-sap-ui-compactVersion="Edge"
+                data-sap-ui-bindingSyntax="complex">
+        </script>
+        
+        <script>
+        
+	        /**
+	         * Aggregation binding
+	         * Demo written by Stone Wang
+	         */
+	        // application data
+	        var oAppData = [
+	            { articleName: "SAP成本计算流程", type: "Locked", hits: 1048 },
+	            { articleName: "SAP物料价格修改", type: "Draft", hits: 58 },
+	            { articleName: "2017年SAP技术趋势", type: "Unsaved", hits: 320},
+	            { articleName: "《人类简史》读后感", type: "Flagged", hits: 90 },
+	            { articleName: "《Core Java》第十版出版", type: "Favorite" , hits: 66}
+	        ];
+	        
+	        var oModel = new sap.ui.model.json.JSONModel();
+	        //oModel.setData({modelData: oAppData});
+	        //oModel.setData({justTestData: oAppData});
+	        oModel.setData(oAppData);
+	        sap.ui.getCore().setModel(oModel);
+	        
+	        // 定义一个包含包含3列的数组
+	        var aColumns = [
+	            new sap.m.Column({
+	                header : new sap.m.Label({text : "文章"})
+	            }),     
+	            new sap.m.Column({
+	                header : new sap.m.Label({text : "标记1"})
+	            }),
+	            new sap.m.Column({
+	                header : new sap.m.Label({text : "标记2"})
+	            })
+	        ]
+	        
+	        // 定义template, 每行包含3个cell
+	        var oColumnListItem = new sap.m.ColumnListItem({
+	            vAlign: "Middle",
+	            cells: [
+	                new sap.m.Text({text: "{articleName}"}),
+	                
+	                //Template方式绑定1--使用settings设置
+	                new sap.m.ObjectMarker({
+	                	type: "{type}",
+	                	visibility: sap.m.ObjectMarkerVisibility.IconOnly
+	                }),
+	                
+	                //Template方式绑定2--控件的bindXXX()方法 / 暂时没有找到对应的方法
+	                //new sap.m.ObjectMarker().bindObject({path: "type", mode: sap.ui.model.BindingMode.OneWay}),
+	                
+	                //Template方式绑定3--使用控件的类型化绑定方法
+	                /*new sap.m.ObjectMarker().bindProperty("type", {
+						                           path: "type",
+						                           mode: sap.ui.model.BindingMode.OneWay
+					}).setVisibility(sap.m.ObjectMarkerVisibility.IconOnly),*/
+	                
+	                new sap.m.ObjectMarker({
+	                    type: "{type}",
+	                    //active: true,
+	                    visibility: sap.m.ObjectMarkerVisibility.IconAndText,
+	                    press: function(oEvent){
+	                        sap.m.MessageToast.show(oEvent.getParameter("type") + " pressed");
+	                    }
+	                })   
+	            ]
+	        });
+	        
+	        // 聚合绑定1--在构造器的setting中设置
+	        var oTable = new sap.m.Table({
+	            columns : aColumns,
+	            //items: {path: "/justTestData", template: oColumnListItem}
+	            items: {path: "/", template: oColumnListItem}
+	        });
+	        
+	        // 聚合绑定2--使用sap.ui.base.ManagedObject的bindAggregation()方法
+	        // 聚合绑定3--使用控件的类型化绑定方法
+	        
+	        var oTablePanel = new sap.m.Panel({
+	            headerText: "文章列表",
+	            content: oTable
+	        });
+	        
+	        var oStandalonePanel = new sap.m.Panel("standalone-panel", {
+	            headerText: "图例：",
+	            content: [
+	                new sap.m.ObjectMarker({type: sap.m.ObjectMarkerType.Locked, visibility: sap.m.ObjectMarkerVisibility.IconAndText}),      
+	                new sap.m.ObjectMarker({type: sap.m.ObjectMarkerType.Flagged, visibility: sap.m.ObjectMarkerVisibility.IconAndText}),
+	                new sap.m.ObjectMarker({type: sap.m.ObjectMarkerType.Favorite, visibility: sap.m.ObjectMarkerVisibility.IconAndText}),            
+	                new sap.m.ObjectMarker({type: sap.m.ObjectMarkerType.Draft, visibility: sap.m.ObjectMarkerVisibility.IconAndText}),       
+	                new sap.m.ObjectMarker({type: sap.m.ObjectMarkerType.Unsaved, visibility: sap.m.ObjectMarkerVisibility.IconAndText})
+	            ]
+	        });
+	        
+	        var oApp = new sap.m.App({  initialPage: "page" });
+	        var oPage = new sap.m.Page("page", {
+	            title:"Aggregation binding demo",
+	            content: [oTablePanel, oStandalonePanel]
+	        });
+	        oApp.addPage(oPage).placeAt("content");
+	        
+        </script>
+
+    </head>
+    <body class="sapUiBody sapUiResponsiveMargin" role="application">
+        <div id="content"></div>
+    </body>
+</html>
