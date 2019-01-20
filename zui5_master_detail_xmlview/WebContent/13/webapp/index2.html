@@ -37,7 +37,7 @@
 	        var aColumns = [
 	            new sap.m.Column({
 	                header : new sap.m.Label({text : "文章"})
-	            }),     
+	            }),
 	            new sap.m.Column({
 	                header : new sap.m.Label({text : "标记"})
 	            }),
@@ -57,7 +57,7 @@
 	        oTable.bindAggregation("items", "/modelData", function(sId, oContext){
 	            var oColumnListItem = new sap.m.ColumnListItem(sId, {vAlign: "Middle"});
 	            oColumnListItem.addCell(new sap.m.Text({text: "{articleName}"}));
-	            oColumnListItem.addCell(new sap.m.ObjectMarker({type: "{type}"}));
+	            oColumnListItem.addCell(new sap.m.ObjectMarker({type: "{type}", visibility: sap.m.ObjectMarkerVisibility.IconOnly}));
 	            
 	            var oHits = oContext.getProperty("hits");   
 	            if (oHits >= 100) {
@@ -87,15 +87,15 @@
 	        var oStandalonePanel = new sap.m.Panel("standalone-panel", {
 	            headerText: "图例：",
 	            content: [
-	                new sap.m.ObjectMarker({type: sap.m.ObjectMarkerType.Locked}),
-	                new sap.m.ObjectMarker({type: sap.m.ObjectMarkerType.Flagged}),
-	                new sap.m.ObjectMarker({type: sap.m.ObjectMarkerType.Favorite}),
-	                new sap.m.ObjectMarker({type: sap.m.ObjectMarkerType.Draft}),
-	                new sap.m.ObjectMarker({type: sap.m.ObjectMarkerType.Unsaved})
+	                new sap.m.ObjectMarker({type: sap.m.ObjectMarkerType.Locked, visibility: sap.m.ObjectMarkerVisibility.IconAndText}),
+	                new sap.m.ObjectMarker({type: sap.m.ObjectMarkerType.Flagged, visibility: sap.m.ObjectMarkerVisibility.IconAndText}),
+	                new sap.m.ObjectMarker({type: sap.m.ObjectMarkerType.Favorite, visibility: sap.m.ObjectMarkerVisibility.IconAndText}),
+	                new sap.m.ObjectMarker({type: sap.m.ObjectMarkerType.Draft, visibility: sap.m.ObjectMarkerVisibility.IconAndText}),
+	                new sap.m.ObjectMarker({type: sap.m.ObjectMarkerType.Unsaved, visibility: sap.m.ObjectMarkerVisibility.IconAndTextd})
 	            ]
 	        });
 			
-	        var oApp = new sap.m.App({  initialPage: "page" });
+	        var oApp = new sap.m.App({initialPage: "page"});
 	        var oPage = new sap.m.Page("page", {
 	            title:"Aggregation binding demo",
 	            content: [oTablePanel, oStandalonePanel]
