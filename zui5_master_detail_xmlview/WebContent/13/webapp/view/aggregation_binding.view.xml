@@ -1,0 +1,29 @@
+<core:View xmlns:core="sap.ui.core" 
+           xmlns:mvc="sap.ui.core.mvc" 
+           xmlns="sap.m"
+           controllerName="bindingtest.controller.aggregation_binding" 
+           xmlns:html="http://www.w3.org/1999/xhtml">
+
+    <Panel class="sapUiSmallMargin" headerText="文章列表">
+        <content>
+            <Table id="table" width="auto" class="sapUiSmallMargin"
+                noDataText="no data">
+                <columns>
+                    <Column><header><Label text="文章" /></header></Column>
+                    <Column><header><Label text="标记" /></header></Column>
+                    <Column hAlign="Right"><header><Label text="阅读次数" /></header></Column>                  
+                </columns>
+            </Table>
+        </content>
+    </Panel>
+    
+    <Panel class="sapUiSmallMargin" headerText="图例">
+        <content>
+            <ObjectMarker class="sapUiSmallMargin" type="Locked" visibility = "IconAndText" />
+            <ObjectMarker class="sapUiSmallMargin" type="Flagged" visibility = "IconAndText" />
+            <ObjectMarker class="sapUiSmallMargin" type="Favorite" visibility = "IconAndText" />
+            <ObjectMarker class="sapUiSmallMargin" type="Draft" visibility = "IconAndText" />
+            <ObjectMarker class="sapUiSmallMargin" type="Unsaved" visibility = "IconAndText" />
+        </content>
+    </Panel>
+</core:View>

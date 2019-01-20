@@ -1,0 +1,48 @@
+{
+    "suppliers": [
+        {
+            "id": "1",
+            "supplier_name" : "康富食品",
+            "contact": "黄小姐"
+        }, {
+            "id": "2",
+            "supplier_name" : "为全",
+            "contact": "王先生"
+        }, {
+            "id": "3",
+            "supplier_name" : "康堡",
+            "contact": "刘先生"
+        }
+    ],   
+    "products": [
+        {
+            "supplier_id":"1",
+            "product_id":"1",
+            "product_name": "海鲜粉"
+        }, {
+            "supplier_id":"1",
+            "product_id":"2",
+            "product_name": "胡椒粉"
+        }, {
+            "supplier_id":"1",
+            "product_id":"3",
+            "product_name": "桂花糕"
+        }, {
+            "supplier_id":"2",
+            "product_id":"1",
+            "product_name": "啤酒"
+        }, {
+            "supplier_id":"3",
+            "product_id":"1",
+            "product_name": "土豆片"
+        }, {
+            "supplier_id":"3",
+            "product_id":"2",
+            "product_name": "鸡汤"
+        },{
+            "meal_no":"2",
+            "day_id":"3",
+            "items": "果仁巧克力"
+        }
+    ]
+}

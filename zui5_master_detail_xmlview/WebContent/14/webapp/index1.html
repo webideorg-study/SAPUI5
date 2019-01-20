@@ -1,0 +1,111 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
+
+        <script src="../../resources/sap-ui-core.js"
+                id="sap-ui-bootstrap"
+                data-sap-ui-libs="sap.m, sap.ui.layout"
+                data-sap-ui-theme="sap_bluecrystal">
+        </script>
+
+        <script>        
+        
+            sap.ui.getCore().attachInit(function(){
+                
+                // 绑定json数据到core对象
+                var oModel = new sap.ui.model.json.JSONModel();
+                oModel.loadData("models/products.json");
+                sap.ui.getCore().setModel(oModel);
+                
+                // 使用ObjectListItem定义行项目的template
+                var oTemplate = new sap.m.ObjectListItem("test01" ,{
+                    title: "{ProductName}",
+                    //type: "Active",
+                    //type: sap.m.ListType.Active,
+                    //type: sap.m.ListType.Detail,
+                    type: sap.m.ListType.Navigation,
+                    
+                    // 点击的时候设置oPrdDetail.Panel绑定到当前行
+                    press: function(oEvent){
+                        var oContext = oEvent.getSource().getBindingContext();
+                        var sPath = oContext.getPath();
+                        console.log(sPath);
+                        //无法获取，需要进一步了解这个方法的意义
+                        //console.log(oEvent.getParameter("ProductName"));
+                        console.log(oEvent.getParameters("id"));
+                        console.log(oContext.getProperty("ProductName"));
+                        oPrdDetailPanel.bindElement({path: sPath}); 
+                    }
+                });             
+                    
+                // 定义一个Panel，在Panel中放置List, List使用oTemplate
+                // 作为行的模板
+                var oPrdListPanel = new sap.m.Panel({
+                    headerText: "产品清单",
+                    content: [new sap.m.List({
+                        items: {path: '/Products', template: oTemplate}
+                    })]
+                });
+                
+                // 明细数据使用垂直布局，每一行包括Label和Input                  
+                var aProductDetailInfo = new sap.ui.layout.VerticalLayout({
+                    content: [
+                        new sap.ui.layout.HorizontalLayout({
+                            content: [
+                                new sap.m.Label({
+                                    text: "Product Id:",width: "150px"
+                                }),
+                                new sap.m.Input({value: "{ProductID}"})
+                            ]
+                        }),
+                    
+                        new sap.ui.layout.HorizontalLayout({
+                            content: [
+                                new sap.m.Label({
+                                    text: "Product Name:",width: "150px"
+                                }),
+                                new sap.m.Input({value: "{ProductName}"})
+                            ]
+                        }),
+                    
+                        new sap.ui.layout.HorizontalLayout({
+                            content: [
+                                new sap.m.Label({
+                                    text: "Quantity Per Unit:",width: "150px"
+                                }),
+                                new sap.m.Input({value: "{QuantityPerUnit}"})
+                            ]
+                        }),
+                        
+                        new sap.ui.layout.HorizontalLayout({
+                            content: [
+                                new sap.m.Label({
+                                    text: "Unit Price:",width: "150px"
+                                }),
+                                new sap.m.Input({value: "{UnitPrice}"})
+                            ]
+                        })  
+                    ]
+                });
+                
+                var oPrdDetailPanel = new sap.m.Panel("prdDetailPanel", {
+                    headerText: "产品明细",
+                    width: "auto",
+                    content: [aProductDetailInfo]
+                });     
+                
+                new sap.ui.layout.HorizontalLayout({
+                    content: [oPrdListPanel, oPrdDetailPanel]
+                }).placeAt("content");
+                
+            });             
+            
+        </script>
+
+    </head>
+    <body class="sapUiBody sapUiResponsiveMargin" role="application">
+        <div id="content"></div>
+    </body>
+</html>

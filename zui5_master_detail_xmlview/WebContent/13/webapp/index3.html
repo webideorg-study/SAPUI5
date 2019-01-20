@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
+
+        <script src="../../resources/sap-ui-core.js"
+                id="sap-ui-bootstrap"
+                data-sap-ui-libs="sap.m, sap.ui.layout"
+                data-sap-ui-resourceroots='{"bindingtest": "./"}'
+                data-sap-ui-theme="sap_bluecrystal">
+        </script>
+
+        <script>            
+            var oApp = new sap.m.App({initialPage: "mainpage"});
+            var oView = sap.ui.xmlview({
+                id: "mainpage",
+                viewName: "bindingtest.view.aggregation_binding"
+            });
+    
+            oApp.addPage(oView);
+            oApp.placeAt("content");
+        </script>
+
+    </head>
+    <body class="sapUiBody" role="application">
+        <div id="content"></div>
+    </body>
+</html>
