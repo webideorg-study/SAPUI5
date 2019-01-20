@@ -45,7 +45,7 @@
 	                header : new sap.m.Label({text: "阅读次数"})
 	            })
 	            ]
-				
+			
 			
 	        // Table control
 	        var oTable = new sap.m.Table({
@@ -54,7 +54,8 @@
 			
 			
 	        // 使用Factory function实现动态的数据显示
-	        oTable.bindAggregation("items", "/modelData", function(sId, oContext){
+	        //oTable.bindAggregation("items", "/modelData", function(sId, oContext){
+            oTable.bindAggregation("items", {path: "/modelData", factory: function(sId, oContext){
 	            var oColumnListItem = new sap.m.ColumnListItem(sId, {vAlign: "Middle"});
 	            oColumnListItem.addCell(new sap.m.Text({text: "{articleName}"}));
 	            oColumnListItem.addCell(new sap.m.ObjectMarker({type: "{type}", visibility: sap.m.ObjectMarkerVisibility.IconOnly}));
@@ -76,7 +77,8 @@
 	            }
 	            
 	            return oColumnListItem;
-	        });
+	        }
+            });
 			
 			
 	        var oTablePanel = new sap.m.Panel({

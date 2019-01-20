@@ -73,6 +73,7 @@
 	                    //active: true,
 	                    visibility: sap.m.ObjectMarkerVisibility.IconAndText,
 	                    press: function(oEvent){
+	                    	console.log(oEvent.getParameters());
 	                        sap.m.MessageToast.show(oEvent.getParameter("type") + " pressed");
 	                    }
 	                })   
