@@ -76,7 +76,7 @@
 	                    	console.log(oEvent.getParameters());
 	                        sap.m.MessageToast.show(oEvent.getParameter("type") + " pressed");
 	                    }
-	                })   
+	                })
 	            ]
 	        });
 	        
@@ -101,6 +101,7 @@
 			});
 			//oTable.bindItems("/modelData", oColumnListItem);
 			oTable.bindItems({path: "/modelData", template: oColumnListItem});
+			//console.log(oTable);
 
 	        var oTablePanel = new sap.m.Panel({
 	            headerText: "文章列表",

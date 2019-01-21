@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
+
+        <script src="../../resources/sap-ui-core.js"
+                id="sap-ui-bootstrap"
+                data-sap-ui-libs="sap.m, sap.ui.layout"
+                data-sap-ui-theme="sap_bluecrystal">
+        </script>
+
+        <script>
+        
+	        sap.ui.getCore().attachInit(function(){             
+	            
+	            var oData = {
+	                "company" : {
+	                    "name"  : "Acme Inc.",
+	                    "street": "23 Franklin St.", 
+	                    "city"  : "Claremont",
+	                    "state" : "New Hampshire",
+	                    "zip"   : "03301",
+	                    "revenue": "1833990"
+	                }
+	            };
+	            
+	            var oModel = new sap.ui.model.json.JSONModel();
+	            oModel.setData(oData);
+	            
+	            sap.ui.getCore().setModel(oModel);
+	            
+	            /*
+	            new sap.m.Input({
+	                value: "{/company/name}"
+	            }).placeAt("content");
+	            */
+	            
+	            new sap.m.Panel({
+	                headerText: "Company Information",
+	                content: [
+	                     new sap.m.Label({text: "Company name"}),
+	                     new sap.m.Input({value: "{/company/name}"}),
+	                     
+	                     new sap.m.Label({text: "Company street"}),
+	                     new sap.m.Input({value: "{/company/street}"}),
+	                     
+	                     new sap.m.Label({text: "City"}),
+	                     new sap.m.Input({value: "{/company/city}"})
+	                          
+	                ]
+	            }).placeAt("content");
+	            
+	        }); // end of attachInit()
+
+        </script>
+
+    </head>
+    <body class="sapUiBody sapUiResponsiveMargin" role="application">
+        <div id="content"></div>
+    </body>
+</html>

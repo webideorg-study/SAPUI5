@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
+
+        <script src="../../resources/sap-ui-core.js"
+                id="sap-ui-bootstrap"
+                data-sap-ui-libs="sap.m, sap.ui.layout"
+                data-sap-ui-theme="sap_bluecrystal">
+        </script>
+
+        <script>
+        
+	        sap.ui.getCore().attachInit(function(){             
+	            
+	            var oData = {
+	                "company" : {
+	                    "name"  : "Acme Inc.",
+	                    "street": "23 Franklin St.", 
+	                    "city"  : "Claremont",
+	                    "state" : "New Hampshire",
+	                    "zip"   : "03301",
+	                    "revenue": "1833990"
+	                }
+	            };
+	            
+	            var oModel = new sap.ui.model.json.JSONModel();
+	            oModel.setData(oData);
+	            
+	            sap.ui.getCore().setModel(oModel);
+	            
+	            var oPanel = new sap.m.Panel({
+	                content: [
+	                    new sap.m.Label({text: "Company name"}),
+	                    new sap.m.Input({value: "{name}"}),
+	                    new sap.m.Label({text: "Street"}),
+	                    new sap.m.Input({value: "{street}"}),
+	                    new sap.m.Label({text: "City"}),
+	                    new sap.m.Input({value: "{city}"}),
+	                ]        
+	            });
+	            
+	            oPanel.bindElement("/company"); 
+	            oPanel.placeAt("content");
+	            
+	        }); // end of attachInit()
+
+        </script>
+
+    </head>
+    <body class="sapUiBody sapUiResponsiveMargin" role="application">
+        <div id="content"></div>
+    </body>
+</html>

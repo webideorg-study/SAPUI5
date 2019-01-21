@@ -22,24 +22,27 @@
                 // sap.ui.table.Table对象，显示供应商
                 var oColumns = [
                     new sap.ui.table.Column({
-                        label: new sap.m.Label({text: "ID"}),
-                        visible: false,
+                        label: new sap.m.Label({text: "供应商编码"}),
+                        visible: true,
+                        //flexible: true,
                         template: new sap.m.Text({text: "{id}"})
                     }),
                     new sap.ui.table.Column({
                         label: new sap.m.Label({text: "供应商名称"}),
                         visible: true,
+                        //flexible: true,
                         template: new sap.m.Text({text: "{supplier_name}"})
                     }),
                     new sap.ui.table.Column({
                         label: new sap.m.Label({text: "联系人"}),
                         visible: true,
+                        //flexible: true,
                         template: new sap.m.Text({text: "{contact}"})
                     })
                 ];
                 
                 var oSupplierTable = new sap.ui.table.Table({
-                    width: "100%",
+                    width: "80%",
                     title: "供应商",
                     visibleRowCount: 3,
                     selectionMode: sap.ui.table.SelectionMode.Single,
@@ -47,7 +50,8 @@
                     columns: oColumns
                 }); 
                 
-                oSupplierTable.bindRows("/suppliers");              
+                //oSupplierTable.bindRows("/suppliers");
+                oSupplierTable.bindRows({path: "/suppliers"});
                 oSupplierTable.placeAt("master");
                 
                 // 定义sap.ui.table.Table对象，显示供应商的产品
@@ -65,7 +69,7 @@
                 ];
                 
                 var oProductTable = new sap.ui.table.Table({
-                    width: "100%",
+                    width: "80%",
                     title: "产品",
                     visibleRowCount: 3,
                     selectionMode: sap.ui.table.SelectionMode.Single,
@@ -82,7 +86,7 @@
                     var oRowContext = oEvent.getParameter("rowContext");
                     
                     // 根据row index获取model数据中的id
-                    var sSelectedId = oModel.getProperty("id", oRowContext);                    
+                    var sSelectedId = oModel.getProperty("id", oRowContext);
                     
                     // 对products中的数据进行过滤
                     var oBinding = oProductTable.getBinding();
@@ -97,7 +101,7 @@
                     oBinding.filter(oFilter);
                 });
                 
-            }); // end of attachInit()          
+            }); // end of attachInit()
             
         </script>
 
