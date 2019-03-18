@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
+
+        <script src="../../resources/sap-ui-core.js"
+                id="sap-ui-bootstrap"
+                data-sap-ui-libs="sap.m, sap.ui.layout"
+                data-sap-ui-theme="sap_bluecrystal">
+        </script>
+
+        <script>
+     	
+	     	// application data 
+	        var oModel = new sap.ui.model.json.JSONModel();
+	        oModel.setData({
+	            dateValue: new Date(2006,0,12,22,19,35), // 2006.1.12
+	            dateTimeString: "2006/1/12 12:19:35"
+	        });
+	        sap.ui.getCore().setModel(oModel);      
+	        
+	        // 显示DateTime
+	        new sap.ui.layout.VerticalLayout({
+	            content: [
+	                //pattern，源数据为javascript Date
+	                new sap.m.Text({
+	                    text:{
+	                        path:"/dateValue",
+	                        type: new sap.ui.model.type.DateTime({
+	                            pattern: "yyyy/MM/dd, HH:mm:ss.SSS"
+	                        })
+	                    }
+	                }),
+	                
+	                // 原数据为字符串, 自定义输出格式
+	                new sap.m.Text({
+	                    text:{path:"/dateTimeString",
+	                        type: new sap.ui.model.type.DateTime({
+	                            source: {pattern: "yyyy/MM/dd HH:mm:ss"}, 
+	                            pattern: "'Year:' yyyy 'Month:' MMMM 'Day:' dd ',' ss 'Sec.' mm 'Min.' HH 'Hours'"
+	                        })
+	                   }
+	                }),
+	                
+	                // 数据源是字符串
+	                // 用style控制显示的格式，可以为short,medium(defalut),long和full
+	                new sap.m.Text({
+	                    text:{path:"/dateTimeString",
+	                        type: new sap.ui.model.type.DateTime({
+	                            source: {pattern: "yyyy/MM/dd hh:mm:ss"}, style: "medium"
+	                        })}
+	                }),                 
+	
+	            ] // content array
+	        }).placeAt("content");
+	    
+        </script>
+
+    </head>
+    <body class="sapUiBody sapUiResponsiveMargin" role="application">
+        <div id="content"></div>
+    </body>
+</html>

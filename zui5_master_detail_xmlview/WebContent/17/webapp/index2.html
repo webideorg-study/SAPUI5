@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
+
+        <script src="../../resources/sap-ui-core.js"
+                id="sap-ui-bootstrap"
+                data-sap-ui-libs="sap.m, sap.ui.layout"
+                data-sap-ui-theme="sap_bluecrystal">
+        </script>
+
+        <script>
+        
+	        var oModel = new sap.ui.model.json.JSONModel();
+	        oModel.setData({
+	            productid: "10000"
+	        });
+	        sap.ui.getCore().setModel(oModel);  
+	        
+	        var oIntType = new sap.ui.model.type.Integer(
+	            {minIntegerDigits: 5, maxIntegerDigits: 5},
+	            {minimum:10000, maximum:99999});            
+	        
+	        var oInput = new sap.m.Input("product_id", {
+	            tooltip: "大小：10000至99999",
+	            value: {
+	                path: "/productid",
+	                type: oIntType
+	            }
+	        });
+	        
+	        oInput.attachValidationError(this, function(oEvent){
+	            // 标识控件为错误状态
+	            this.setValueState(sap.ui.core.ValueState.Error);
+	            
+	            // 提示   
+	            sap.m.MessageToast.show("ID的范围从10000至99999!");
+	        });     
+	        
+	        oInput.attachValidationSuccess(this, function(oEvent){
+	            this.setValueState(sap.ui.core.ValueState.Success);
+	        });     
+	
+	        oInput.placeAt("content");
+	        
+        </script>
+
+    </head>
+    <body class="sapUiBody sapUiResponsiveMargin" role="application">
+        <div id="content"></div>
+    </body>
+</html>

@@ -30,7 +30,7 @@
             
             // setting the model to the core
             // so that it's available to the whole application
-            sap.ui.getCore().setModel(oModel);
+            //sap.ui.getCore().setModel(oModel);
             
             // define columns and table
             var oIdCol = new sap.ui.table.Column({
@@ -59,7 +59,7 @@
                 columns: [oIdCol, oNameCol]
             });
             
-            //oTable.setModel(oModel);
+            oTable.setModel(oModel);
             oTable.bindRows("/Suppliers");
             
             // define page & app
@@ -71,7 +71,7 @@
             var oApp = new sap.m.App("myApp");
             
             oApp.addPage(oPage);
-            oApp.placeAt("content");            
+            oApp.placeAt("content");
             
         </script>
 

@@ -30,21 +30,14 @@
 	            
 	            sap.ui.getCore().setModel(oModel);
 	            
-	            var oPanel = new sap.m.Panel({
-	                content: [
-	                    new sap.m.Label({text: "Company name"}),
-	                    new sap.m.Input({value: "{name}"}),
-	                    new sap.m.Label({text: "Street"}),
-	                    new sap.m.Input({value: "{street}"}),
-	                    new sap.m.Label({text: "City"}),
-	                    new sap.m.Input({value: "{city}"}),
-	                ]        
+	            jQuery.sap.registerModulePath("bindingtest", "./");
+	            var oView = sap.ui.xmlview({
+	                viewName: "bindingtest.view.relativebinding"
 	            });
+	
+	            oView.placeAt("content");
 	            
-	            oPanel.bindElement("/company"); 
-	            oPanel.placeAt("content");
-	            
-	        }); // end of attachInit()
+	        });
 
         </script>
 

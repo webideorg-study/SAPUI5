@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
+
+        <script src="../../resources/sap-ui-core.js"
+                id="sap-ui-bootstrap"
+                data-sap-ui-libs="sap.m, sap.ui.layout"
+                data-sap-ui-theme="sap_bluecrystal">
+        </script>
+
+        <script>
+        
+	        var oModel = new sap.ui.model.json.JSONModel();
+	        oModel.setData({
+	            productid: "10000",
+	            productname: "Micro Projector"
+	        });
+	        sap.ui.getCore().setModel(oModel);  
+	        
+	        var oIntType = new sap.ui.model.type.Integer(
+	            {minIntegerDigits: 5, maxIntegerDigits: 5},
+	            {minimum:10000, maximum:99999});            
+	        
+	        var oProductIdInput = new sap.m.Input("product_id", {
+	            tooltip: "大小：10000至99999",
+	            value: {path: "/productid", type: oIntType}
+	        });
+	        
+	        var oStringType = new sap.ui.model.type.String(null,{
+	            minLength:3, maxLength:20
+	        });
+	        
+	        var oProductNameInput = new sap.m.Input("product_name", {
+	            tooltip: "长度3至20",
+	            value: {path: "/productname", type: oStringType}
+	        });
+	        
+	        sap.ui.getCore().attachValidationError(this, function(oEvent){
+	            // 确定引发错误的ID
+	            //var oElement = oEvent.getParameter("element");
+	            var oElement = oEvent.getSource();
+	            
+	            // 标识错误并且提示
+	            oElement.setValueState(sap.ui.core.ValueState.Error);
+	            if (oElement.getId() == "product_id"){
+	                sap.m.MessageToast.show("ID的范围从10000至99999!");
+	            }
+	            
+	            if (oElement.getId() == "product_name"){
+	                sap.m.MessageToast.show("produc name长度为3到20!");
+	            }
+	        });     
+	        
+	        sap.ui.getCore().attachValidationSuccess(this, function(oEvent){
+	            var oElement = oEvent.getParameter("element");
+	            oElement.setValueState(sap.ui.core.ValueState.None);
+	        });
+	        
+	        oProductIdInput.placeAt("area1");
+	        oProductNameInput.placeAt("area2");
+	        
+        </script>
+
+    </head>
+    <body class="sapUiBody sapUiResponsiveMargin" role="application">
+        <div id="area1"></div>
+        <div id="area2"></div>
+    </body>
+</html>

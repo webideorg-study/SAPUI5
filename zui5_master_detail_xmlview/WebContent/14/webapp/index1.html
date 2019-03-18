@@ -30,12 +30,13 @@
                     // 点击的时候设置oPrdDetail.Panel绑定到当前行
                     press: function(oEvent){
                         var oContext = oEvent.getSource().getBindingContext();
+                        console.log(oContext);
                         var sPath = oContext.getPath();
                         console.log(sPath);
                         //无法获取，需要进一步了解这个方法的意义
                         //console.log(oEvent.getParameter("ProductName"));
                         //console.log(oEvent.getParameters("id"));
-                        console.log(oContext.getProperty("ProductName"));
+                        //console.log(oContext.getProperty("ProductName"));
                         oPrdDetailPanel.bindElement({path: sPath}); 
                     }
                 });             

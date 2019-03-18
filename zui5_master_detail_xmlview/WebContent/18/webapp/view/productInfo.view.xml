@@ -1,0 +1,11 @@
+<core:View xmlns:core="sap.ui.core" 
+           xmlns:mvc="sap.ui.core.mvc" 
+           xmlns="sap.m"
+           controllerName="webapp.controller.productInfo" 
+           xmlns:html="http://www.w3.org/1999/xhtml">
+    <Page id="page" title="产品信息">
+        <content>
+            <Text text="{path: '/productname', formatter: '.formatter.toUpper'}"/>
+        </content>
+    </Page>
+</core:View>

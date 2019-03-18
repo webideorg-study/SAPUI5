@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
+
+        <script src="../../resources/sap-ui-core.js"
+                id="sap-ui-bootstrap"
+                data-sap-ui-libs="sap.m, sap.ui.layout"
+                data-sap-ui-theme="sap_bluecrystal">
+        </script>
+
+        <script>
+     	
+	     	// application data 
+	        var oModel = new sap.ui.model.json.JSONModel();
+	        oModel.setData({
+	            dateValue: new Date(2006,0,12,22,19,35), // 2006.1.12
+	            dateString: "2006/1/12"
+	        });
+	        sap.ui.getCore().setModel(oModel);      
+	
+	        // 显示日期
+	        new sap.ui.layout.VerticalLayout({
+	            content: [
+	                //不设置格式选项，系统自动确定
+	                new sap.m.Text({
+	                    text:{path:"/dateValue",
+	                        type: new sap.ui.model.type.Date()}
+	                }),
+	                
+	                // 使用pattern, 输出为yy-MM-dd
+	                new sap.m.Text({
+	                    text:{path:"/dateValue",
+	                        type: new sap.ui.model.type.Date({
+	                            pattern: "yy-MM-dd"
+	                        })}
+	                }),
+	                
+	                // 加上星期
+	                new sap.m.Text({
+	                    text:{path:"/dateValue",
+	                        type: new sap.ui.model.type.Date({
+	                            pattern: "EEEE, yyyy MMM d"
+	                        })}
+	                }),
+	                
+	                // 原数据是字符串
+	                // 用style控制显示的格式，可以为short,medium(defalut),long和full
+	                new sap.m.Text({
+	                    text:{path:"/dateString",
+	                        type: new sap.ui.model.type.Date({
+	                            source: {pattern: "yyyy/MM/dd"}, style: "full"
+	                        })}
+	                }),
+	                
+	                // 原数据是字符串，用pattern控制显示
+	                new sap.m.Text({
+	                    text:{path:"/dateString",
+	                        type: new sap.ui.model.type.Date({
+	                            source: {pattern: "yyyy/MM/dd"}, pattern: "yyyy-MM-dd"
+	                        })}
+	                }),
+	                
+	                // 原数据是字符串，格式依据locale设定
+	                new sap.m.Text({
+	                    text:{path:"/dateString",
+	                        type: new sap.ui.model.type.Date({
+	                            source: {}, pattern: "yyyy-MM-dd"
+	                        })}
+	                }),
+	                
+	            ] // content array
+	        }).placeAt("content");
+	    
+        </script>
+
+    </head>
+    <body class="sapUiBody sapUiResponsiveMargin" role="application">
+        <div id="content"></div>
+    </body>
+</html>

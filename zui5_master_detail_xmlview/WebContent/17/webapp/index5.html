@@ -1,0 +1,145 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
+
+        <script src="../../resources/sap-ui-core.js"
+                id="sap-ui-bootstrap"
+                data-sap-ui-libs="sap.m, sap.ui.layout, sap.ui.commons, sap.ui.table"
+                data-sap-ui-theme="sap_bluecrystal">
+        </script>
+
+        <script>        
+        
+        var oCore = sap.ui.getCore();
+        
+        oCore.attachInitEvent(function() {
+            
+            // application data
+            var oAppData = {
+                    employees:[
+                        {firstName:"孟德", lastName:"曹", id: "1", salary : 2169.50},
+                        {firstName:"云长", lastName:"关", id: "2", salary : 2622.00},
+                        {firstName:"飞", lastName:"张", id: "3", salary : 1322.03},
+                        {firstName:"孔明", lastName:"诸葛", id: "4", salary : 3522.35},
+                        {firstName:"备", lastName:"刘", id: "5", salary : 3732.57}
+                    ]
+            };
+            var oModel = new sap.ui.model.json.JSONModel();
+            oModel.setData(oAppData);
+            
+            // 设置core的model使得model对整个application可见
+            sap.ui.getCore().setModel(oModel);          
+            
+            var oTable = new sap.ui.table.Table({visibleRowCount: 5});
+            
+            // 第一列:ID
+            oTable.addColumn(new sap.ui.table.Column("id", {
+                label: new sap.ui.commons.Label({text: "ID"}),
+                template: new sap.ui.commons.TextField({value:"{id}"}),
+                sortProperty: "id",
+                filterProperty: "id"
+            }));
+            
+            // 第二列：名，长度1-15
+            var oStringType = new sap.ui.model.type.String(null, {
+                minLength : 1,
+                maxLength : 15
+            });
+            
+            oTable.addColumn(new sap.ui.table.Column("first_name", {
+                tooltip: "长度1到15.",
+                label: new sap.ui.commons.Label({text: "名"}),
+                template: new sap.ui.commons.TextField().bindValue({
+                    path: "firstName", type: oStringType
+                }),
+                sortProperty: "firstName",
+                filterProperty: "firstName"
+            }));
+            
+            // 第三列：姓，长度1-15
+            oTable.addColumn(new sap.ui.table.Column("last_name", {
+                tooltip: "长度1到15.",
+                label: new sap.ui.commons.Label({text: "姓"}),
+                template: new sap.ui.commons.TextField().bindValue({
+                    path: "lastName", type: oStringType}),
+                sortProperty: "lastName",
+                filterProperty: "lastName"
+            }));
+            
+            // 第四列：salary
+            var oFloatType = new sap.ui.model.type.Float("salary", {
+                minFractionDigits : 2,
+                maxFractionDigits : 2
+            }, {
+                maximum : 8000
+            });
+            oTable.addColumn(new sap.ui.table.Column({
+                tooltip: "最大值8000",
+                label: new sap.ui.commons.Label({text: "薪资"}),
+                template: new sap.ui.commons.TextField().bindValue({
+                    path: "salary", type: oFloatType}),
+                sortProperty: "salary",
+                filterProperty: "salary"
+            }));        
+
+            // validation success
+            oTable.attachValidationSuccess(this, function(oEvent){
+                var oElement = oEvent.getParameter('element');
+                var sId = oElement.getId();
+                oSimpleListBox.addItem(
+                        new sap.ui.core.ListItem({
+                            text: sId + "校验成功."
+                        }));
+
+            });
+            
+            // validation error
+            oTable.attachValidationError(this, function(oEvent){
+                //var oElement = oEvent.getParameter('element');
+                var oElement = oEvent.getSource();
+                var sId = oElement.getId();
+                oSimpleListBox.addItem(new sap.ui.core.ListItem({
+                    text: sId + "校验失败，" + oEvent.getParameter("message")}));                
+            });
+            
+            // parse error
+            oTable.attachParseError(this, function(oEvent){
+                var oElement = oEvent.getParameter('element');
+                var sId = oElement.getId();
+                oSimpleListBox.addItem(new sap.ui.core.ListItem({
+                    text: sId + "," + oEvent.getParameter("message")}));
+            });
+
+            oTable.bindRows("/employees");
+            
+            // 定义ListBox对象，显示错误消息
+            var oSimpleListBox = new sap.ui.commons.ListBox({
+                enabled: true,
+                width: "600px",
+                height: "200px"
+            });
+            
+            // 定义Button对象，清除ListBox消息
+            var oBtn = new sap.ui.commons.Button({text: "清除消息", press: function(){
+                oSimpleListBox.removeAllItems();
+            }});
+            
+
+            var oLayout = new sap.ui.layout.VerticalLayout({
+                content: [oTable, oSimpleListBox, oBtn]
+            });
+            
+            oLayout.placeAt("layoutArea");
+        });         
+                
+            
+        </script>
+
+    </head>
+    <body class="sapUiBody sapUiResponsiveMargin" role="application">
+        <div id="header"></div>
+        <div id="layoutArea"></div>
+    </body>
+</html>

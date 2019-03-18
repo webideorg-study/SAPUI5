@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
+
+        <script src="../../resources/sap-ui-core.js"
+                id="sap-ui-bootstrap"
+                data-sap-ui-libs="sap.m, sap.ui.layout"
+                data-sap-ui-theme="sap_bluecrystal">
+        </script>
+
+        <script>
+        
+	        // application data
+	        var oModel = new sap.ui.model.json.JSONModel();
+	        oModel.setData({
+	            productid: "10000",
+	            productname: "Micro Projector"
+	        });
+	        sap.ui.getCore().setModel(oModel);  
+	        
+	        var oIntType = new sap.ui.model.type.Integer({  
+	            minIntegerDigits: 5,
+	            maxIntegerDigits: 5
+	            }, {
+	            minimum:1,
+	            maximum:99999
+	        });         
+	        
+	        // 自定义数据类型
+	        sap.ui.model.SimpleType.extend("sap.stonetest.productid", {
+	            // format value
+	            formatValue: function(sValue, sTargetValue){
+	                return sValue;
+	            },
+	            
+	            // parse value
+	            parseValue: function(sValue, sSourceValue){
+	                return sValue;
+	            },
+	            
+	            // validate value
+	            validateValue: function(sValue){
+	                if (sValue < 10000 || sValue > 99999){                  
+	                    throw new sap.ui.model.ValidateException("prodcut id范围：10000至99999");  
+	                }
+	            }
+	        });
+	        
+	        var oInput = new sap.m.Input("product_id", {
+	            tooltip: "prodcut id范围：10000至99999"
+	        });
+	        
+	        oInput.bindProperty("value",{
+	            path: "/productid",
+	            type: new sap.stonetest.productid()
+	        });     
+	        
+	        oInput.attachValidationError(this, function(oEvent){
+	            sap.m.MessageToast.show(oEvent.getParameter("message"));
+	        });
+	        
+	        oInput.placeAt("content");
+	        
+        </script>
+
+    </head>
+    <body class="sapUiBody sapUiResponsiveMargin" role="application">
+        <div id="content"></div>
+    </body>
+</html>

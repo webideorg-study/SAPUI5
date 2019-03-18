@@ -19,7 +19,8 @@ sap.ui.jsview("webapp.view.Master", {
         // 定义template作为line items
         var oTemplate = new sap.m.ColumnListItem({
             type: "Navigation",
-            press: [oController.onListPress, oController],
+            //press: [oController.onListPress, oController],
+            press: oController.onListPress,
             cells: [
                 new sap.m.ObjectIdentifier({text: "{ID}"}),
                 new sap.m.ObjectIdentifier({text: "{Name}"})

@@ -25,24 +25,24 @@
                 initialPage: "masterView"
             });
             
-/*          var oMasterView = sap.ui.jsview("masterView", "webapp.view.Master");
+	        var oMasterView = sap.ui.jsview("masterView", "webapp.view.Master");
             var oDetailView = sap.ui.jsview("detailView", "webapp.view.Detail");
             
             oApp.addPage(oMasterView);
-            oApp.addPage(oDetailView); */
-            
-            var oMasterView = sap.ui.xmlview({
-                id: "masterView",
-                viewName: "webapp.view.Master"
-            }); 
-            
-            var oDetailView = sap.ui.xmlview({
-                id: "detailView",
-                viewName: "webapp.view.Detail"
-            });
-            
-            oApp.addPage(oMasterView);
             oApp.addPage(oDetailView);
+            
+//             var oMasterView = sap.ui.xmlview({
+//                 id: "masterView",
+//                 viewName: "webapp.view.Master"
+//             }); 
+            
+//             var oDetailView = sap.ui.xmlview({
+//                 id: "detailView",
+//                 viewName: "webapp.view.Detail"
+//             });
+            
+//             oApp.addPage(oMasterView);
+//             oApp.addPage(oDetailView);
 
             oApp.placeAt("content");
             

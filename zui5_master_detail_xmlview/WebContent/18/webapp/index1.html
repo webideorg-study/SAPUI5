@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
+
+        <script src="../../resources/sap-ui-core.js"
+                id="sap-ui-bootstrap"
+                data-sap-ui-libs="sap.m, sap.ui.layout"
+                data-sap-ui-theme="sap_bluecrystal">
+        </script>
+
+        <script>
+        
+	        var oModel = new sap.ui.model.json.JSONModel();
+	        oModel.setData({
+	            productid: "10000",
+	            productname: "Micro Projector"
+	        });
+	        sap.ui.getCore().setModel(oModel);
+	
+	        var oText = new sap.m.Text({
+	            text: {
+	                path: "/productname",
+	                formatter: function(sValue){
+	                    return sValue && sValue.toUpperCase();
+	                }
+	            }
+	        });
+	        oText.placeAt("content");
+	        
+        </script>
+
+    </head>
+    <body class="sapUiBody sapUiResponsiveMargin" role="application">
+        <div id="content"></div>
+    </body>
+</html>

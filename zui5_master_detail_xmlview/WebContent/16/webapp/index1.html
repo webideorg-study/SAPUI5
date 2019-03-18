@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
+
+        <script src="../../resources/sap-ui-core.js"
+                id="sap-ui-bootstrap"
+                data-sap-ui-libs="sap.m, sap.ui.layout"
+                data-sap-ui-theme="sap_bluecrystal">
+        </script>
+
+        <script>
+        
+        	var oData = {
+        	    product: {
+        	        id: "1",
+        	        product_name: "泸州老窖 国窖 1573 52度",
+        	        price: "4199"
+        	    }
+        	};
+
+        	var oModel = new sap.ui.model.json.JSONModel(oData);
+        	sap.ui.getCore().setModel(oModel);  
+
+        	var oIntType1 = new sap.ui.model.type.Integer({
+        		minIntegerDigits: 1, // minimal number of non-fraction digits
+        	    maxIntegerDigits: 99, // maximal number of non-fraction digits
+        	    minFractionDigits: 0, // minimal number of fraction digits
+        	    maxFractionDigits: 0, // maximal number of fraction digits
+        	    groupingEnabled: true, // enable grouping (show the grouping separators)
+        	    groupingSeparator: ",", // the used grouping separator
+        	    decimalSeparator: "." // the used decimal separator
+        	});
+        	
+        	var oIntType2 = new sap.ui.model.type.Integer({ 
+        	    minIntegerDigits: 5,
+        	    maxIntegerDigits: 8
+        	});
+        	
+        	var oIntType3 = new sap.ui.model.type.Float({
+        		minIntegerDigits: 1, // minimal number of non-fraction digits
+        	    maxIntegerDigits: 99, // maximal number of non-fraction digits
+        	    minFractionDigits: 2, // minimal number of fraction digits
+        	    maxFractionDigits: 5, // maximal number of fraction digits
+        	    groupingEnabled: true, // enable grouping (show the grouping separators)
+        	    groupingSeparator: ",", // the used grouping separator
+        	    decimalSeparator: "." // the used decimal separator
+        	});
+
+			/*
+        	var oInput = new sap.m.Input({
+        	    value: {
+        	        path: "/product/price",
+        	        type: oIntType
+        	    }
+        	});
+
+        	oInput.placeAt("content");
+        	*/
+        	
+        	new sap.ui.layout.VerticalLayout({
+                content: [
+                	new sap.m.Input({
+                	    value: {
+                	        path: "/product/price",
+                	        type: oIntType1
+                	    }
+                	}),
+                	
+                	new sap.m.Input({
+                	    value: {
+                	        path: "/product/id",
+                	        type: oIntType2
+                	    }
+                	}),
+                	
+                	new sap.m.Input({
+                	    value: {
+                	        path: "/product/price",
+                	        type: oIntType3
+                	    }
+                	})
+                ]
+            }).placeAt("content");
+        	
+        </script>
+
+    </head>
+    <body class="sapUiBody sapUiResponsiveMargin" role="application">
+        <div id="content"></div>
+    </body>
+</html>

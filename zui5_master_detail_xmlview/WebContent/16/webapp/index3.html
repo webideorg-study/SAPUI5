@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
+
+        <script src="../../resources/sap-ui-core.js"
+                id="sap-ui-bootstrap"
+                data-sap-ui-libs="sap.m, sap.ui.layout"
+                data-sap-ui-theme="sap_bluecrystal">
+        </script>
+
+        <script>
+     	
+	     	// application data 
+	        var oModel = new sap.ui.model.json.JSONModel();
+	        oModel.setData({
+	            timeValue: new Date(2006,0,12,22,19,35), // 2006.1.12
+	            timeString: "22:19:35"
+	        });
+	        sap.ui.getCore().setModel(oModel);      
+	        
+	        // 显示时间
+	        new sap.ui.layout.VerticalLayout({
+	            content: [
+	                //不设置格式选项，系统自动确定
+	                new sap.m.Text({
+	                    text:{path:"/timeValue",
+	                        type: new sap.ui.model.type.Time()}
+	                }),
+	                
+	                // 使用pattern, 输出为hh:mm:ss
+	                new sap.m.Text({
+	                    text:{path:"/timeValue",
+	                        type: new sap.ui.model.type.Time({
+	                            pattern: "hh:mm:ss"
+	                        })}
+	                }),             
+	
+	                
+	                // 数据源是字符串
+	                // 用style控制显示的格式，可以为short,medium(defalut),long和full
+	                new sap.m.Text({
+	                    text:{path:"/timeString",
+	                        type: new sap.ui.model.type.Time({
+	                            source: {pattern: "hh:mm:ss"}, style: "short"
+	                        })}
+	                }),
+	                
+	                // 数据源是字符串，用pattern控制显示
+	                new sap.m.Text({
+	                    text:{path:"/timeString",
+	                        type: new sap.ui.model.type.Time({
+	                            source: {pattern: "hh:mm:ss"}, pattern: "hh 时 mm 分 ss 秒"
+	                        })}
+	                }),
+	                
+	                // 数据源是字符串，输入格式依据locale
+	                new sap.m.Text({
+	                    text:{path:"/timeString",
+	                        type: new sap.ui.model.type.Time({
+	                            source: {}, pattern: "hh:mm a"
+	                        })}
+	                }),
+	                
+	            ] // content array
+	        }).placeAt("content");
+	    
+        </script>
+
+    </head>
+    <body class="sapUiBody sapUiResponsiveMargin" role="application">
+        <div id="content"></div>
+    </body>
+</html>

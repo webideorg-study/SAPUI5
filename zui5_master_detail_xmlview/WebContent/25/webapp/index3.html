@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
+
+        <script src="../../resources/sap-ui-core.js"
+                id="sap-ui-bootstrap"
+                data-sap-ui-libs="sap.m"
+                data-sap-ui-theme="sap_bluecrystal">
+        </script>
+
+        <script>
+			
+        	//sap.ui.require("sap/ui/model/odata/v2/ODataModel");
+			var serviceUrl = getServiceUrl("/sap/opu/odata/SAP/ZGW_PO_SRV/");
+			function getServiceUrl(sServiceUrl) {
+			  //for local testing prefix with proxy
+			  //if you and your team use a special host name or IP like 127.0.0.1 for localhost please adapt the if statement below 
+			  if (window.location.hostname == "localhost") {
+			      return "/proxy" + sServiceUrl;
+			  } else {
+			      return sServiceUrl;
+			  }
+			}
+			
+	        function initialization(){
+		    	
+		        //var sServiceUrl = "https://services.odata.org/V2/Northwind/Northwind.svc/";
+		        //var sServiceUrl = "/proxy/sap/opu/odata/SAP/ZGW_PO_SRV/";
+		        
+		        var serviceUrl = "/zui5_master_detail_xmlview/proxy/sap/opu/odata/SAP/ZGW_PO_SRV?sap-client=200";
+		        //var serviceUrl = "proxy/sap/opu/odata/SAP/ZGW_PO_SRV?sap-client=200";
+		        console.log(serviceUrl);
+		        
+		        //var oModel = new sap.ui.model.odata.v2.ODataModel({serviceUrl:serviceUrl, user:"xzhou030", password:"Pwc123456"});
+		        //var oModel = new sap.ui.model.odata.ODataModel(serviceUrl, true, "xzhou030", "Pwc123456");
+		        
+		        var oModel = new sap.ui.model.odata.v2.ODataModel(serviceUrl, {
+		            json     : true,
+		            user     : "xzhou030",
+		            password : "Pwc123456"
+		            //headers : {"content-type" : "application/json; charset=utf-8"}
+		        });
+		        
+		        //oModel.setUseBatch(false);
+		        
+		        //sap.ui.getCore().setModel(oModel);
+		        
+		        oModel.read("/POHeaderSet('4500000000')/Ebeln", {
+		            success: function(oData, oResponse){
+		                console.log("PO Number: " + oData.Ebeln);
+		                console.log(oResponse);
+		            },
+		            error: function(oError){
+		                console.log(oError);
+		            }
+		        });
+
+	        }
+	        
+	        sap.ui.getCore().attachInit(initialization);
+	        
+        </script>
+
+    </head>
+    <body class="sapUiBody" role="application">
+        <div id="content" class="sapUiResponsiveMargin"></div>
+    </body>
+</html>

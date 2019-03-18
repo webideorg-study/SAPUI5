@@ -5,7 +5,7 @@
 		version="2.5"
 		xmlns="http://java.sun.com/xml/ns/javaee">
 
-	<display-name>zui5_master_detail_xmlview</display-name>
+	<display-name>zui5_odata_sap_crud</display-name>
 
 	<!-- ============================================================== -->
 	<!-- UI5 resource servlet used to handle application resources      -->
@@ -80,6 +80,14 @@
 		<servlet-name>SimpleProxyServlet</servlet-name>
 		<url-pattern>/proxy/*</url-pattern>
 	</servlet-mapping>
+	<context-param>
+		<param-name>com.sap.ui5.resource.PREFER_REMOTE_LOCATION</param-name>
+		<param-value>true</param-value>
+	</context-param>
+    <context-param>
+		<param-name>com.sap.ui5.proxy.REMOTE_LOCATION</param-name>
+		<param-value>http://10.191.66.28:8000</param-value>
+    </context-param>
 
 
 	<!-- ============================================================== -->

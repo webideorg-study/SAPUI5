@@ -30,6 +30,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller"],
                 oColumnListItem.addCell(new sap.m.Text({text: "{articleName}"}));
                 oColumnListItem.addCell(new sap.m.ObjectMarker({type: "{type}", visibility: sap.m.ObjectMarkerVisibility.IconOnly}));      
                 
+                console.log(oContext);
                 // third cell is dynamic
                 var oHits = oContext.getProperty("hits");
                 if (oHits >= 100) {
