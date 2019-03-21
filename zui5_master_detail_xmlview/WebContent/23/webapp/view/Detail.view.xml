@@ -15,7 +15,7 @@
             </ObjectHeader>
             -->
             
-            <ObjectHeader title="{Name}" number="ID: {ID}">
+            <ObjectHeader title="{Name}" number="ID: {id}">
 				<ObjectAttribute text="{Address/Street}, {Address/City}"/>
 			</ObjectHeader>
         </content>

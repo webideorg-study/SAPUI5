@@ -17,7 +17,8 @@ sap.ui.jsview("webapp.view.Detail", {
         
         var oDetailPage = new sap.m.Page({
             showNavButton: true,
-            navButtonPress: [oController.onNavPress, oController],
+            //navButtonPress: [oController.onNavPress, oController],
+            navButtonPress: oController.onNavPress,
             title: "供应商明细",
             content: [oObjectHeader]
         });

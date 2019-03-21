@@ -2,10 +2,11 @@ sap.ui.define([
 	    "sap/ui/core/UIComponent",
 	    "sap/ui/model/resource/ResourceModel",
 	    "sap/ui/model/json/JSONModel",
-	    "stonewang/sapui5/demo/model/AppModel"
+	    "stonewang/sapui5/demo/model/AppModel",
+	    "sap/ui/Device"
 	],  
         
-    function (UIComponent, ResourceModel, JSONModel, AppModel) {
+    function (UIComponent, ResourceModel, JSONModel, AppModel, Device) {
 		"use strict";
 		
 		return UIComponent.extend("stonewang.sapui5.demo.Component", {
@@ -93,7 +94,15 @@ sap.ui.define([
 	            // call the base component's init function
 	            UIComponent.prototype.init.apply(this, arguments);	            
 	            
-	            var oAppModel = new AppModel("/Suppliers");
+	            // create the device model here 
+//	            var oModel = new JSONModel(Device); 
+//	            oModel.setDefaultBindingMode("OneWay"); 
+//	            this.setModel(oModel, "device");
+	            
+	            //var oAppModel = new AppModel();
+	            //var oAppModel = new JSONModel("/Suppliers");
+	            var oAppModel = new AppModel();
+	            //oAppModel.setDefaultBindingMode("OneWay"); 
 	            
 	            jQuery.ajax({
 	                type : "GET",
@@ -101,16 +110,18 @@ sap.ui.define([
 	                url : "/Suppliers",
 	                dataType : "json",
 	                success : function(oData) {
-	                    oAppModel.setData(oData);
+	                	oAppModel.setData(oData);
+	                    //sap.ui.getCore().setModel(oAppModel);
+	                    //console.log('Step 1:' + oAppModel.getJSON());
 	                },
 	                error : function() {
-	                    jQuery.sap.log.debug(
-	                    	"Something went wrong while retrieving the data");
+	                    //jQuery.sap.log.debug("Something went wrong while retrieving the data");
+	                	console.log("an error occurred retrieving the Data"); 
 	                }
 				});
 	            
-	            
 	            this.setModel(oAppModel);
+	            //console.log('Step 2:' + this.getModel().getJSON());
 	            
 	            // create the views based on the url/hash
 				this.getRouter().initialize();

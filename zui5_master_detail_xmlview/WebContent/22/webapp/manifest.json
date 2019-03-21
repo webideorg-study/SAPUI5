@@ -12,7 +12,7 @@
 		"description": "{{appDescription}}",
 		"dataSources": {
 			"mainService": {
-				"uri": "./service/data.json",
+				"uri": "service/data.json",
 				"type": "JSON"
 			}
 		}
@@ -69,16 +69,18 @@
 					"target": "notFound"
 				}
 			},
-			"routes": [{
-				"pattern": "",
-				"name": "master",
-				"target": "master"
-			},
-			{
-				"pattern": "detail/{supplierPath}",
-				"name": "detail",
-				"target": "detail"
-			}],
+			"routes": [
+				{
+					"pattern": "",
+					"name": "master",
+					"target": "master"
+				},
+				{
+					"pattern": "detail{supplierPath}",
+					"name": "detail",
+					"target": "detail"
+				}
+			],
 			"targets": {
 				"master": {
 					"viewName": "Master",

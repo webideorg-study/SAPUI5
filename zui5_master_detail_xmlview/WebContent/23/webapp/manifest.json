@@ -69,7 +69,6 @@
 					"target": "notFound"
 				}
 			},
-
 			"routes": [
 				{
 					"pattern": "",
@@ -77,7 +76,7 @@
 					"target": "master"
 				},
 				{
-					"pattern": "detail/{id}",
+					"pattern": "detail{supplierPath}",
 					"name": "detail",
 					"target": "detail"
 				}

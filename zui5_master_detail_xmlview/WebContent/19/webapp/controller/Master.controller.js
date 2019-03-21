@@ -9,10 +9,18 @@ sap.ui.define(
                 var sPageId = "detailView";
                 oApp.to(sPageId);
                 
-                var oContext = oEvent.getSource().getBindingContext();
                 var oDetailPage = oApp.getPage(sPageId);
-                oDetailPage.setBindingContext(oContext);
                 
+                var oContext = oEvent.getSource().getBindingContext();
+                //console.log("Current Context: " + oContext);
+                var sPath = oContext.getPath();
+                console.log("Current Path: " + sPath);
+                
+                // 第一种方式
+                //oDetailPage.setBindingContext(oContext);
+                
+                // 第二种方式
+                oDetailPage.bindElement({path: sPath});
             }
         });
     }

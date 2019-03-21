@@ -16,8 +16,7 @@ sap.ui.define([
         	onInit: function(){
         		// 模式匹配，则调用_onObjectMatched
 				var oRouter = UIComponent.getRouterFor(this);
-				oRouter.getRoute("detail")
-					.attachPatternMatched(this._onObjectMatched, this);
+				oRouter.getRoute("detail").attachPatternMatched(this._onObjectMatched, this);
 				
 				
 				// 创建一个model view, 包含两个button是否enabled的布尔值
@@ -25,6 +24,7 @@ sap.ui.define([
 					canGoPrev: false,
 					canGoNext: false
 				});
+				//oViewModel.setDefaultBindingMode("OneWay");
 				this.getView().setModel(oViewModel, "viewModel");
 			},
 			
@@ -59,7 +59,7 @@ sap.ui.define([
 				sId = sId + 1;
 				
 				var oRouter = UIComponent.getRouterFor(this);
-				var sNewRoute = encodeURIComponent("/"+sId);
+				var sNewRoute = encodeURIComponent("/" + sId);
 				oRouter.navTo("detail", {supplierPath: sNewRoute});
 				
 				console.log("Down: " + sId);
@@ -69,10 +69,10 @@ sap.ui.define([
 				// 数据绑定
 				var sPath = decodeURIComponent(oEvent.getParameter("arguments").supplierPath);
 				this.getView().bindElement({path: sPath});
-				
 				console.log("Init: " + sPath);
 				
 				this.sObjectID = sPath.substr(sPath.lastIndexOf("/")+1);
+				console.log("ObjectID: " + this.sObjectID);
 				this._updateViewModel();
 			},
 			

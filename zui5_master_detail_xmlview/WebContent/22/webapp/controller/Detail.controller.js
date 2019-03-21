@@ -15,8 +15,7 @@ sap.ui.define([
         	
         	onInit: function(){
 				var oRouter = UIComponent.getRouterFor(this);
-				oRouter.getRoute("detail")
-					.attachPatternMatched(this._onObjectMatched, this);	
+				oRouter.getRoute("detail").attachPatternMatched(this._onObjectMatched, this);	
 			},
 			
 			onNavPress: function() {
@@ -32,8 +31,7 @@ sap.ui.define([
 			},
 			
 			_onObjectMatched: function (oEvent) {			
-				var sPath = decodeURIComponent(
-						oEvent.getParameter("arguments").supplierPath);
+				var sPath = decodeURIComponent(oEvent.getParameter("arguments").supplierPath);
 				this.getView().bindElement({path: sPath});
 			}
         

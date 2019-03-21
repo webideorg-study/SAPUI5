@@ -94,7 +94,8 @@ sap.ui.define([
 	            UIComponent.prototype.init.apply(this, arguments);	            
 	            
 	            //var oAppModel = new AppModel("/Suppliers");
-	            var oAppModel = new sap.ui.model.json.JSONModel("/Suppliers");
+	            //var oAppModel = new sap.ui.model.json.JSONModel("/Suppliers");
+	            var oAppModel = new AppModel();
 	            
 	            jQuery.ajax({
 	                type : "GET",
@@ -106,8 +107,7 @@ sap.ui.define([
 	                    //console.log(oData);
 	                },
 	                error : function() {
-	                    jQuery.sap.log.debug(
-	                    	"Something went wrong while retrieving the data");
+	                    jQuery.sap.log.debug("Something went wrong while retrieving the data");
 	                }
 				});
 	            

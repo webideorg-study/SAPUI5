@@ -24,7 +24,7 @@ sap.ui.define([
 	    		var sPath = oItem.getBindingContext().getPath();
 	    		oRouter.navTo("detail", {
 	    			 supplierPath: encodeURIComponent(sPath)
-	    		});;
+	    		});
                 
             },
             

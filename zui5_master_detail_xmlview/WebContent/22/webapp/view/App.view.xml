@@ -18,5 +18,5 @@
            xmlns="sap.m"
            displayBlock="true"
 		   xmlns:html="http://www.w3.org/1999/xhtml">		
-	<App id="app" />
+	<App id="app"/>
 </core:View>

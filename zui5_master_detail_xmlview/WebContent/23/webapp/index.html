@@ -24,11 +24,13 @@
 					"stonewang/sapui5/demo/Component",
 					"sap/ui/thirdparty/sinon"
 				], function (Shell, ComponentContainer, Component) {
-	
+					
 	                jQuery.ajax({
 	                    url : "service/suppliers.json",
 	                    success : function(oData) {
+	    					//debugger;
 	                        initAppWithFakeRest(oData);
+	                        //console.log("OData: " + oData);
 	                    },
 	                    error : function() {
 	                        alert("Could not start server");
@@ -49,9 +51,9 @@
 	                      //whenever the this returns true the request will not faked
 	                      return !url.match(/Suppliers/);
 	                    });
-	      
+	                    
 	                    // use sinon.js to monkey-patch XmlHttpRequest
-	                     server.respondWith(restServer.getHandler());
+	                    server.respondWith(restServer.getHandler());
 	    				
 	                    // initialize the UI component
 	    				new Shell({
@@ -69,7 +71,7 @@
 		</script>
 
 	</head>
-	<body class="sapUiBody" role="application">
-		<div id="content"></div>
-	</body>
+    <body class="sapUiBody" role="application">
+        <div id="content" class="sapUiResponsiveMargin"></div>
+    </body>
 </html>

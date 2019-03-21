@@ -77,7 +77,7 @@
 					"target": "master"
 				},
 				{
-					"pattern": "detail/{supplierPath}",
+					"pattern": "detail{supplierPath}",
 					"name": "detail",
 					"target": "detail"
 				}
