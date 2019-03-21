@@ -1,0 +1,162 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
+
+		<script src="../../resources/sap-ui-core.js"
+				id="sap-ui-bootstrap"
+				data-sap-ui-libs="sap.m"
+				data-sap-ui-theme="sap_bluecrystal">
+		</script>
+
+		<script>
+			
+			// Application data
+			//var serviceUrl = "/zui5_master_detail_xmlview/proxy/sap/opu/odata/SAP/ZGW_PO_SRV?sap-client=300";
+			var serviceUrl = "/zui5_master_detail_xmlview/proxy/sap/opu/odata/SAP/ZGW_PO_SRV";
+	        
+	        var oModel = new sap.ui.model.odata.v2.ODataModel(serviceUrl, {
+	            json     : true,
+	            user     : "XZZHOU",
+	            password : "Pwc123456",
+	            serviceUrlParams : {
+	            	"sap-client" : "300"
+	            }
+	        });
+	        
+	        // read a Entity that exists
+	        function readEntity(){
+	        	
+		        oModel.read("/zekkoekpoSet(Ebeln='4500000378',Ebelp='00010')", {
+		            success: function(oData, oResponse){
+		                console.log(oData.Matnr + " / " + oData.Menge);
+		                //console.log(oResponse);
+		            },
+		            error: function(oError){
+		                console.log(oError);
+		            }
+		        });
+		        
+	        };
+	        
+	        // 读取 OData model 缓存的数据, oModel.getData() method is depreciated
+	        function getData(){
+	        	
+		        oModel.read("/zekkoekpoSet", {
+		        	urlParameters: {
+		                "$select"    : "Matnr,Menge"
+		            },
+		            success: function(oData, oResponse){
+		            	//console.log(oData);
+		                // 两种方法读取属性
+		                var zekkoekpo = oModel.getData("/zekkoekpoSet(Ebeln='4500000378',Ebelp='00010')");
+		             	// 方法1
+		                console.log(zekkoekpo.Matnr);
+		                console.log(zekkoekpo.Menge);
+		                
+		                // 方法2
+		                console.log(oModel.getProperty("/zekkoekpoSet(Ebeln='4500000378',Ebelp='00010')/Matnr"));
+		                console.log(oModel.getProperty("/zekkoekpoSet(Ebeln='4500000378',Ebelp='00010')/Menge"));
+		                
+		                console.log(oModel.getServiceMetadata());
+		                //console.log(JSON.stringify(oModel.getServiceMetadata()));
+		                console.log(JSON.parse(JSON.stringify(oModel.getServiceMetadata())));
+		            },
+		            error: function(oError){
+		                console.log(oError);
+		            }
+		        });
+		        
+	        };
+	        
+	        // create new Entity
+	        function createEntity(){
+	        	
+	        	var oNewData = {
+		        		        "Ebeln": "4500000378",
+		        		        "Ebelp": "00030",
+		        		        "Bukrs": "3102",
+		        		        "Bsart": "Z101",
+		        		        "Matnr": "1021200298",
+		        		        "Werks": "3102",
+		        		        "Meins": "只",
+		        		        "Menge": "1000",
+		        		        "Loekz": ""
+	        				   };
+		        
+	            oModel.setUseBatch(false);
+	            oModel.setHeaders({
+	                "Content-type" : "application/json"
+	            });
+	            
+		        oModel.create("/zekkoekpoSet", oNewData, {
+		        	success: function(oData, oResponse){
+		        		console.log(oResponse);
+		        	}, 
+		        	error: function(oError){
+		        		console.log(oError);
+		        	}
+		        });
+		        
+	        };
+	        
+	        // edit Entity
+	        function editEntity(){
+	        	
+	            oModel.setHeaders({
+	            	//"Content-type" : "application/json",
+	                "If-match" : "*"
+	            });
+	            
+			    var oChanges = {
+		        		        "Ebeln": "4500000378",
+		        		        "Ebelp": "00030",
+		        		        "Bukrs": "3102",
+		        		        "Bsart": "Z101",
+		        		        "Matnr": "1021200298",
+		        		        "Werks": "3000",
+		        		        "Meins": "只",
+		        		        "Menge": "2000",
+		        		        "Loekz": "X"
+		    				   };
+			        
+			    oModel.update("/zekkoekpoSet(Ebeln='4500000378',Ebelp='00030')", oChanges, {
+			        success: function(oData, oResponse){
+			            console.log("Response", oResponse);
+			        },
+			        error: function(oError){
+			            console.log("Error", oError);
+			        }
+			    });
+			    
+			};
+			
+	        // remove Entity
+	        function removeSupplier(){
+		        
+                // set headers
+                oModel.setHeaders({
+                    "If-match": "*"
+                });
+                
+		        oModel.remove("/zekkoekpoSet(Ebeln='4500000378',Ebelp='00030')", {
+	        		success: function(oData, oResponse){
+			            console.log("Response", oResponse);
+			        },
+			        error: function(oError){
+			            console.log("Error", oError);
+			        }
+			    });
+			    
+			};
+	        
+	        
+	        sap.ui.getCore().attachInit(removeSupplier);
+		</script>
+
+	</head>
+	<body class="sapUiBody" role="application">
+		<div id="content"></div>
+	</body>
+</html>

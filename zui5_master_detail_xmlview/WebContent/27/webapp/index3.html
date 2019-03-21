@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
+
+		<script src="../../resources/sap-ui-core.js"
+				id="sap-ui-bootstrap"
+				data-sap-ui-libs="sap.m"
+				data-sap-ui-theme="sap_bluecrystal">
+		</script>
+
+		<script>
+			
+			// Application data
+			//var serviceUrl = "/zui5_master_detail_xmlview/proxy/sap/opu/odata/SAP/ZGW_PO_SRV?sap-client=300";
+			var serviceUrl = "/zui5_master_detail_xmlview/proxy/sap/opu/odata/SAP/ZSL_EPM_DEMO1_SRV";
+	        
+	        var oModel = new sap.ui.model.odata.v2.ODataModel(serviceUrl, {
+	            json     : true,
+	            user     : "xzhou030",
+	            password : "Pwc123456",
+	            serviceUrlParams : {
+	            	"sap-client" : "200"
+	            }
+	        });
+	        
+	        oModel.setUseBatch(false);
+	        
+	        // $filter Query Option in SAP OData Service
+	        function readEntity1(){
+	        	
+	        	// define filters
+	        	var aFilters = [
+	        	    new sap.ui.model.Filter(
+	        	    		"ProductId",
+	        	    		sap.ui.model.FilterOperator.Contains,
+	        	    		"HT-1000"
+	        	    )
+	        	];
+
+	        	// get data using filter
+	        	oModel.read("/ProductsSet", {
+	        	    filters: aFilters,     
+	        		success: function(oData, oResponse){
+	        			console.log("Data", oData);
+			            console.log("Response", oResponse);
+			        },
+			        error: function(oError){
+			            console.log("Error", oError);
+			        }
+	        	});
+		        
+	        };
+
+	        // $filter Query Option in SAP OData Service
+	        function readEntity2(){
+	        	
+				// 多条件筛选
+				var oProductFilter1 = new sap.ui.model.Filter(
+					    "SupplierName",
+					    sap.ui.model.FilterOperator.StartsWith,
+					    "SAP"
+				);
+
+				var oProductFilter2 = new sap.ui.model.Filter(
+					    "Category",
+					    sap.ui.model.FilterOperator.StartsWith,
+					    "Notebooks"
+				);
+				
+				// 实例化一个新的Filter, 参数2为false
+				var oFilterGroup = new sap.ui.model.Filter([oProductFilter1, oProductFilter2], true);
+				var aFilters = [oFilterGroup];
+
+	        	// get data using filter
+	        	oModel.read("/ProductsSet", {
+	        	    filters: aFilters,     
+	        		success: function(oData, oResponse){
+	        			console.log("Data", oData);
+			            console.log("Response", oResponse);
+			        },
+			        error: function(oError){
+			            console.log("Error", oError);
+			        }
+	        	});
+		        
+	        };
+	        
+	        sap.ui.getCore().attachInit(readEntity2);
+	        
+		</script>
+
+	</head>
+	<body class="sapUiBody" role="application">
+		<div id="content"></div>
+	</body>
+</html>

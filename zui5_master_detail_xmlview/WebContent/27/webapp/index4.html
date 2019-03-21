@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
+
+        <script src="../../resources/sap-ui-core.js"
+                id="sap-ui-bootstrap"
+                data-sap-ui-libs="sap.m"
+                data-sap-ui-theme="sap_bluecrystal">
+        </script>
+        <!-- only load the mobile lib "sap.m" and the "sap_bluecrystal" theme -->
+
+        <script>
+        
+			// Application data
+			//var serviceUrl = "/zui5_master_detail_xmlview/proxy/sap/opu/odata/SAP/ZGW_PO_SRV?sap-client=300";
+			var serviceUrl = "/zui5_master_detail_xmlview/proxy/sap/opu/odata/SAP/ZSL_EPM_DEMO1_SRV";
+	        
+	        var oModel = new sap.ui.model.odata.v2.ODataModel(serviceUrl, {
+	            json     : true,
+	            user     : "xzhou030",
+	            password : "Pwc123456",
+	            serviceUrlParams : {
+	            	"sap-client" : "200"
+	            }
+	        });
+            oModel.setUseBatch(false);
+            sap.ui.getCore().setModel(oModel);
+            
+            // 按选择条件执行筛选
+            onFilterProducts = function(oEvent){
+                var sQueryVal = oEvent.getParameter("query");               
+                var aFilters = [];
+                
+                if (sQueryVal){
+                    var oProductFilter = new sap.ui.model.Filter(
+                            "SupplierName",
+                            sap.ui.model.FilterOperator.Contains,
+                            sQueryVal);
+                    aFilters.push(oProductFilter);
+                }
+                
+                var oList = sap.ui.getCore().byId("ProductList");
+                var oBinding = oList.getBinding("items");
+
+                oBinding.filter(aFilters);
+            }
+            
+            
+            sap.ui.getCore().attachInit(function(){
+                var oList = new sap.m.List({
+                    id: "ProductList",
+                    width: "auto"
+                });
+                
+                oList.setHeaderToolbar(new sap.m.Toolbar({
+                    title: "库存产品清单",
+                    content: [
+                       new sap.m.ToolbarSpacer(),
+                       new sap.m.SearchField({width: "50%", search: onFilterProducts})
+                    ]
+                }));
+                
+                oList.bindItems({
+                    path: "/ProductsSet",
+                    template: new sap.m.ObjectListItem({
+                        title: "{SupplierName}",
+                        number: "{Price}",
+                        numberUnit: "{TypeCode}"
+                    })
+                });
+                
+                var oPage = new sap.m.Page({
+                    title: "oDataModel 筛选测试",
+                    content: [oList]
+                });
+                
+                var oApp = new sap.m.App({
+                    initialPage: oPage
+                });
+                
+                oApp.addPage(oPage);
+                oApp.placeAt("content");        
+            });         
+            
+        </script>
+
+    </head>
+    <body class="sapUiBody" role="application">
+        <div id="content"></div>
+    </body>
+</html>
