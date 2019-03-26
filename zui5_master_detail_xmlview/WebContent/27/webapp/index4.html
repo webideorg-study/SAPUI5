@@ -35,9 +35,10 @@
                 
                 if (sQueryVal){
                     var oProductFilter = new sap.ui.model.Filter(
-                            "SupplierName",
-                            sap.ui.model.FilterOperator.Contains,
-                            sQueryVal);
+						"SupplierName", 
+                    	sap.ui.model.FilterOperator.Contains,
+                        sQueryVal
+                    );
                     aFilters.push(oProductFilter);
                 }
                 
@@ -55,7 +56,7 @@
                 });
                 
                 oList.setHeaderToolbar(new sap.m.Toolbar({
-                    title: "库存产品清单",
+                	ariaLabelledBy: new sap.m.Label({text: "库存产品清单:",width: "150px"}),
                     content: [
                        new sap.m.ToolbarSpacer(),
                        new sap.m.SearchField({width: "50%", search: onFilterProducts})

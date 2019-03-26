@@ -1,0 +1,205 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
+
+        <script src="../../resources/sap-ui-core.js"
+                id="sap-ui-bootstrap"
+                data-sap-ui-libs="sap.m"
+                data-sap-ui-theme="sap_bluecrystal">
+        </script>
+        <!-- only load the mobile lib "sap.m" and the "sap_bluecrystal" theme -->
+
+        <script>
+        
+	     	// Application model
+			var serviceUrl = "/zui5_master_detail_xmlview/proxy/sap/opu/odata/SAP/ZGW_PO_SRV";
+	        var oModel = new sap.ui.model.odata.v2.ODataModel(serviceUrl, {
+	            json     : true,
+	            user     : "XZZHOU",
+	            password : "Pwc123456",
+	            serviceUrlParams : {
+	            	"sap-client" : "300"
+	            }
+	        });
+	        oModel.setUseBatch(false);
+	        sap.ui.getCore().setModel(oModel);
+	
+	        // 定义两个 Sorter 对象，第二个参数表示是否 Descending
+	        var oMatnrSorter = new sap.ui.model.Sorter("Matnr", false);
+	        var oWerksSorter = new sap.ui.model.Sorter("Werks", false);
+	        var oMengeSorter = new sap.ui.model.Sorter("Menge", false);
+	
+	        // 按Matnr 排序
+	        var onSortByMatnr = function(oEvent){
+	        	oMatnrSorter.bDescending = !oMatnrSorter.bDescending;
+	            
+	            var oTable = sap.ui.getCore().byId("POTable");
+	        	// 对sap.ui.table.Table对象推荐使用参数rows，使用bindRows或bindAggregation("rows", "/products")绑定
+	        	// 对sap.m.Table和sap.m.List对象推荐使用参数items，使用bindItems或bindAggregation("items", "/modelData", oColumnListItem)绑定
+	        	// 详细查看《SAPUI5 (27) - 基于 ODataModel 的筛选》
+	            var oListBinding = oTable.getBinding("items");
+	            oListBinding.sort(oMatnrSorter);
+	        };
+	
+	        // 按 Werks 排序
+	        var onSortByWerks = function(oEvent){
+	        	oWerksSorter.bDescending = !oWerksSorter.bDescending;
+	            
+	            var oTable = sap.ui.getCore().byId("POTable");
+	            var oListBinding = oTable.getBinding("items");              
+	            oListBinding.sort(oWerksSorter);     
+	        };
+	        
+	        // 按 Menge 排序
+	        var onSortByMenge = function(oEvent){
+	        	oMengeSorter.bDescending = !oMengeSorter.bDescending;
+	            
+	            var oTable = sap.ui.getCore().byId("POTable");
+	            var oListBinding = oTable.getBinding("items");              
+	            oListBinding.sort(oMengeSorter);     
+	        };
+	        
+	        var onMultipleSort = function(oEvent){
+	        	oWerksSorter.bDescending = !oWerksSorter.bDescending;
+	        	oMengeSorter.bDescending = !oMengeSorter.bDescending;
+	        	
+	            var oTable = sap.ui.getCore().byId("POTable");
+	            var oListBinding = oTable.getBinding("items");  
+	            oListBinding.sort([oWerksSorter, oMengeSorter]);
+	        };
+	        
+            // 按工厂分组
+            var onGroupByWerks = function(oEvent){
+                var oButton = sap.ui.getCore().byId("groupByWerksBtn");
+                var action; // 1: 执行分组; 2: 取消分组
+                                
+                if (oButton.getText()=="按工厂分组"){
+                    oButton.setText("取消分组");
+                    action = 1;
+                }else{
+                    oButton.setText("按工厂分组");
+                    action = 2;
+                }
+                
+                var aSorters = [];
+                
+                if (action == 1){
+                    var vGroup = function(oContext) {
+                        var name = oContext.getProperty("Werks");
+                        return {
+                             key: name,
+                             text: name
+                        };
+                    };
+                    
+                    var oWerksSorter = new sap.ui.model.Sorter("Werks", false, vGroup);
+                    aSorters.push(oWerksSorter);
+                }
+                
+                // apply sort
+                var oTable = sap.ui.getCore().byId("POTable");
+                var oListBinding = oTable.getBinding("items");              
+                oListBinding.sort(aSorters);    
+            };
+	
+	        sap.ui.getCore().attachInit(function(){     
+	            
+	            var oTable = new sap.m.Table("POTable", {
+	                width: "auto",
+	                noDataText: "Loading...",                   
+	                
+	                // header toolbar
+	                headerToolbar: new sap.m.Toolbar({
+	                    content: [
+	                        new sap.m.Title({text: "采购订单清单"}),
+	                        new sap.m.ToolbarSpacer(),
+	                        new sap.m.Button({
+                                id: "groupByWerksBtn",
+                                text: "按工厂分组",
+                                press: onGroupByWerks
+                            })
+	                    ]
+	                }),
+	                
+	                // columns
+	                columns: [
+	                    new sap.m.Column({
+	                        header: new sap.m.Toolbar({
+	                            content: [
+	                                new sap.m.Text({text: "物料ID"}),
+	                                new sap.m.Button({
+	                                    icon: "sap-icon://sort",
+	                                    press: onSortByMatnr
+	                                })
+	                            ]
+	                        })
+	                    }),
+	                    new sap.m.Column({
+	                        header: new sap.m.Toolbar({
+	                            content: [
+	                                new sap.m.Text({text: "工厂ID"}),
+	                                new sap.m.Button({
+	                                    icon: "sap-icon://sort",
+	                                    press: onSortByWerks
+	                                })
+	                            ]
+	                        })
+	                    }),
+	                    new sap.m.Column({
+	                        header: new sap.m.Toolbar({
+	                            content: [
+	                            	new sap.m.Text({text: "数量"}),
+ 	                                new sap.m.Button({
+ 	                                    icon: "sap-icon://sort",
+ 	                                    press: onMultipleSort
+ 	                                })
+	                            ]
+	                        })
+	                    }),
+	                    new sap.m.Column({
+	                        header: new sap.m.Toolbar({
+	                            content: [new sap.m.Label({text: "订单描述"})]
+	                        })
+	                    }),
+	                ],
+	                
+	                // items
+	                items: {
+	                    path: "/POItemSet",
+	                    sorter: oMatnrSorter,
+//  	                    parameters: {
+// 	                        //operationMode: sap.ui.model.odata.OperationMode.Server
+// 	                    	operationMode: sap.ui.model.odata.OperationMode.Client
+// 	                	},
+	                    template: new sap.m.ColumnListItem({
+	                        cells: [
+	                            new sap.m.Text({text: "{Matnr}"}),
+	                            new sap.m.Text({text: "{Werks}"}),
+	                            new sap.m.Text({text: "{Menge}"}),
+	                            new sap.m.Text({text: "{Txz01}"})
+	                        ]
+	                    })                      
+	                }
+	            });         
+	            
+	            var oApp = new sap.m.App({
+	                pages: [
+	                    new sap.m.Page({
+	                        title: "oDataModel 排序",
+	                        content: [oTable]
+	                    })  
+	                ]
+	            });
+	            
+	            oApp.placeAt("content");
+	        });
+            
+        </script>
+
+    </head>
+    <body class="sapUiBody" role="application">
+        <div id="content"></div>
+    </body>
+</html>

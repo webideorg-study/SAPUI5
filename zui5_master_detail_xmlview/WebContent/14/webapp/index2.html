@@ -50,8 +50,12 @@
                     columns: oColumns
                 }); 
                 
+                //绑定方式1
                 //oSupplierTable.bindRows("/suppliers");
-                oSupplierTable.bindRows({path: "/suppliers"});
+                //oSupplierTable.bindRows({path: "/suppliers"});
+                //绑定方式2
+                oSupplierTable.bindAggregation("rows", "/suppliers");
+                
                 oSupplierTable.placeAt("master");
                 
                 // 定义sap.ui.table.Table对象，显示供应商的产品
@@ -77,7 +81,11 @@
                     columns: oColumnsDetail
                 }); 
                 
+                //绑定方式1
                 //oProductTable.bindRows("/products");
+                //绑定方式2
+                oProductTable.bindAggregation("rows", "/products");
+                
                 oProductTable.placeAt("detail");
                 
                 // 定义rowselectionchange事件的处理函数
@@ -100,7 +108,11 @@
                     console.log(sSelectedId);
                     
                     // 对products中的数据进行过滤
-                    var oBinding = oProductTable.getBinding();
+                    // getBinding()参数为空也能获取sap.ui.model.Binding对象，但不推荐
+                    // 对sap.ui.table.Table对象推荐使用参数rows
+                    // 对sap.m.Table和sap.m.List对象推荐使用参数items，详细查看《SAPUI5 (27) - 基于 ODataModel 的筛选》
+                    //var oBinding = oProductTable.getBinding();
+                    var oBinding = oProductTable.getBinding('rows');
                     
                     // 过滤条件：supplier_id = id
                     var oFilter = new sap.ui.model.Filter("supplier_id", sap.ui.model.FilterOperator.EQ, sSelectedId);

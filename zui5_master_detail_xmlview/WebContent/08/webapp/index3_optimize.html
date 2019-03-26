@@ -1,0 +1,156 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
+
+        <script src="../../resources/sap-ui-core.js"
+                id="sap-ui-bootstrap"
+                data-sap-ui-libs="sap.m, sap.ui.table"
+                data-sap-ui-theme="sap_bluecrystal">
+        </script>
+
+        <script>
+//             // application data
+//             var oAppData = 
+//             {
+//                 "CountSuppliers" : 2,
+//                 "Suppliers" : [{
+//                         "ID": 1,
+//                         "Name": "中国图书进出口公司"
+//                     }, {
+//                         "ID": 2,
+//                         "Name": "东莞少儿玩具制造厂"
+//                     }                   
+//                 ]           
+//             };
+            
+//             var oModel = sap.ui.model.json.JSONModel();
+//             oModel.setData(oAppData);
+		        
+	        //var serviceUrl = "/zui5_master_detail_xmlview/proxy/sap/opu/odata/SAP/ZGW_PO_SRV?sap-client=300";
+	        var serviceUrl = "/zui5_master_detail_xmlview/proxy/sap/opu/odata/SAP/ZGW_PO_SRV/";
+	        console.log(serviceUrl);
+	        
+	        var oModel = new sap.ui.model.odata.v2.ODataModel(serviceUrl, {
+	            json     : true,
+	            user     : "XZZHOU",
+	            password : "Pwc123456",
+	            defaultCountMode : "None",
+	            serviceUrlParams : {
+	            	"sap-client" : "300"
+	            	//"$expand"    : "HeadToItemNav"
+	            	//"$skip"      : 0,
+	            	//"$top"       : 20
+	            }
+	        });
+	        oModel.setUseBatch(false);
+	        
+/*             // create JSON model
+            var JSONModel = new sap.ui.model.json.JSONModel();
+            
+	        oModel.read("/POHeaderSet('4500000378')", {
+	        	urlParameters: {
+	                "$expand"    : "HeadToItemNav"
+	            },
+	            success: function(oData, oResponse){
+	                //console.log(oData.HeadToItemNav.results[0].Ebelp);
+	                
+
+            		// set the odata JSON as data of JSON model
+            		JSONModel.setData(oData);
+            		
+	                console.log(oResponse);
+	            },
+	            error: function(oError){
+	                console.log(oError);
+	            }
+	        }); */
+            
+            // setting the model to the core
+            // so that it's available to the whole application
+            //sap.ui.getCore().setModel(oModel);
+            //sap.ui.getCore().setModel(JSONModel);
+            
+            // define columns and table
+            var oIdCol = new sap.ui.table.Column({
+                label: new sap.m.Label({text:"行项目"}),
+                //template: new sap.m.Text().bindProperty("text", "ID"),
+                template: new sap.m.Text().bindText("Ebelp"),
+                sortProperty: "Ebelp",
+                width: "100px"
+            });
+            
+            var oNameCol = new sap.ui.table.Column({
+                label: new sap.m.Label({text:"物料描述"}),
+                //template: new sap.m.Text().bindProperty("text", "Name"),
+                template: new sap.m.Text().bindText("Txz01"),
+                sortProperty: "Txz01",
+                width: "150px"
+            });
+            
+            var oTable = new sap.ui.table.Table({
+                width: "90%",
+                title: "采购订单行项目",
+                //visibleRowCount: 2,
+                firstVisibleRow: 0,
+                editable: false,
+                selectionMode: sap.ui.table.SelectionMode.Single,
+                columns: [oIdCol, oNameCol]
+            });
+            
+           
+            oTable.setModel(oModel);
+            //console.log(oTable.getModel());
+            
+            //oTable.bindRows("/HeadToItemNav/results");
+            
+// 	        oTable.bindRows({
+// 	        	path : "/POHeaderSet('4500000378')"
+// 	        });
+	        
+	        oTable.bindAggregation("rows", {
+	        	path : "/POHeaderSet",
+	        	parameters: { expand: "HeadToItemNav" 
+	        	}
+	        });
+            
+//             oTable.setModel(oModel);
+            
+//             //oTable.bindElement("/POHeaderSet('4500000378')", {expand: "HeadToItemNav"}); 
+//             oTable.bindElement({
+//             	path: "/POHeaderSet('4500000378')",
+//             	parameters: {
+//             		expand : "HeadToItemNav"
+//             	}
+//        		});
+
+//             oTable.bindRows({
+//             	path: "/POHeaderSet('4500000378')",
+//             	parameters: { expand : "HeadToItemNav"}
+//             });
+            
+//             oTable.bindRows({ 
+// 				path: "/POItemSet", 
+// 				parameters: {select: "Ebelp,Txz01"}
+//             });
+            
+            // define page & app
+            var oPage = new sap.m.Page("masterpage", {  
+                title: "供应商",
+                content: [oTable]
+            });
+            
+            var oApp = new sap.m.App("myApp");
+            
+            oApp.addPage(oPage);
+            oApp.placeAt("content");
+	        
+        </script>
+
+    </head>
+    <!-- UI area -->
+    <body class="sapUiBody sapUiResponsiveMargin" role="application">
+        <div id="content"></div>
+    </body>
+</html>
