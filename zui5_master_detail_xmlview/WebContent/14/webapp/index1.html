@@ -30,17 +30,18 @@
                     // 点击的时候设置oPrdDetail.Panel绑定到当前行
                     press: function(oEvent){
                         var oContext = oEvent.getSource().getBindingContext();
+                        
                         console.log(oContext);
                         var sPath = oContext.getPath();
                         console.log(sPath);
-                        //无法获取，需要进一步了解这个方法的意义
-                        //console.log(oEvent.getParameter("ProductName"));
-                        //console.log(oEvent.getParameters("id"));
-                        //console.log(oContext.getProperty("ProductName"));
                         oPrdDetailPanel.bindElement({path: sPath});
+                        
+                        //oContext为oModel一部分，也可以类似调用oModel.getProperty("/Price")
+                        console.log(oContext.getProperty("ProductName"));
+                        
                     }
                 });             
-                    
+                
                 // 定义一个Panel，在Panel中放置List, List使用oTemplate
                 // 作为行的模板
                 var oPrdListPanel = new sap.m.Panel({

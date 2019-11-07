@@ -91,15 +91,15 @@
                 // 定义rowselectionchange事件的处理函数
                 oSupplierTable.attachRowSelectionChange(function(oEvent){
                     
-                	/* 第一种方式 */
-                	// 获取选择行内容
+                	  /* 第一种方式 */
+                	  // 获取选择行内容
                     //var oRowContext = oEvent.getParameter("rowContext");
                     // 根据选择行内容获取model数据中的字段id值
                     //var sSelectedId = oModel.getProperty("id", oRowContext);
                     //var sSelectedId = oRowContext.getProperty("id");
-                    
-                    
-                 	// 获取选择行索引
+
+                    /* 第二种方式 */
+                 	  // 获取选择行索引
                     var oRowIndex = oEvent.getParameter("rowIndex");
                     // 获取选择行内容
                     var oRowContext = oEvent.getSource().getContextByIndex(oRowIndex);
@@ -120,18 +120,18 @@
                     // 执行过滤
                     oBinding.filter(oFilter);
 
-
 					
-					/* 第二种方式，还没实现  */
-// 					// 按照个人理解两种方式都是获取选择行内容，但是第一种获取结果却为undefined
-//					// sap.ui.table.Table没有getBindingContext()方法
-// 					//var oRowContext = oEvent.getSource().getBindingContext();
-// 					var oRowContext = oEvent.getParameter("rowContext");
+// 										/* 第二种方式，还没实现  */
+// 										// 按照个人理解两种方式都是获取选择行内容，但是第一种获取结果却为undefined
+// 										// sap.ui.table.Table没有getBindingContext()方法
+// 										//var oRowContext = oEvent.getSource().getBindingContext();
+// 										//console.log(oRowContext);
+// 										var oRowContext = oEvent.getParameter("rowContext");
                     
 //                     var sPath = oRowContext.getPath();
 //                     console.log(sPath);
                     
-//                     sPath = '/products/1';
+//                     sPath = '/products/2';
 
 //                     oProductTable.setBindingContext(new sap.ui.model.Context(oRowContext.getModel(), sPath)); 
                 });
