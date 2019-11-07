@@ -13,12 +13,19 @@
         <script>
             jQuery.sap.registerModulePath("suppliers", "./suppliers");
                         
-            var oApp = new sap.m.App({initialPage: "firstPage"});
+            var oApp = new sap.m.App({initialPage: "firstPage2"});
             var oFirstPage = sap.ui.view({
-                id: "firstPage",
+                id: "firstPage2",
                 viewName: "suppliers.supplieroverview",
                 type: "JS"
-            });             
+            });
+            
+            
+            console.log("--------oApp--------");
+            console.log(oApp);
+            
+            console.log("--------oFirstPage--------");
+            console.log(oFirstPage);
             
             oApp.addPage(oFirstPage);
             oApp.placeAt("content");

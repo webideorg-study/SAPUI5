@@ -28,14 +28,21 @@
             }
             
             function display() {
+            	  
+            	  //注册事件处理方式2--attachPress
                 var oButton1 = new sap.m.Button("btn1", {
                     text: "Blue Crystal",
-                    press: onButtonPressed
-                });
+                    //注册事件处理方式1--press
+                    //press: onButtonPressed
+                }).attachPress(onButtonPressed);
                 
+            	  //注册事件处理方式3--function
                 var oButton2 = new sap.m.Button("btn2", {
                     text: "Platium",
-                    press: onButtonPressed
+                    press: function(oEvent){
+                    	var oCore = sap.ui.getCore();
+                    	oCore.applyTheme("sap_platium");
+                    }
                 });
                 
                 var oButton3 = new sap.m.Button("btn3", {

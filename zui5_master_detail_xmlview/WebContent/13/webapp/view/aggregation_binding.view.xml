@@ -6,8 +6,7 @@
 
     <Panel class="sapUiSmallMargin" headerText="文章列表">
         <content>
-            <Table id="table" width="auto" class="sapUiSmallMargin"
-                noDataText="no data">
+            <Table id="table" width="auto" class="sapUiSmallMargin" noDataText="no data">
                 <columns>
                     <Column><header><Label text="文章" /></header></Column>
                     <Column><header><Label text="标记" /></header></Column>

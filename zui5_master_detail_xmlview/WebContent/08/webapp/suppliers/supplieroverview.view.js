@@ -45,7 +45,8 @@ sap.ui.jsview("suppliers.supplieroverview", {
             })
         ];
         
-        var oTable = new sap.ui.table.Table({
+        //1.a view-local ID of an element--还不是很明白id为啥要写为firstPage2--table
+        var oTable = new sap.ui.table.Table("firstPage2--table", {
             width: "90%",
             title: "供应商列表",
             visibleRowCount: 2,
@@ -53,14 +54,32 @@ sap.ui.jsview("suppliers.supplieroverview", {
             editable: false,
             selectionMode: sap.ui.table.SelectionMode.Single,
             columns: oColumns
-        });         
-
-        oTable.bindRows("/Suppliers");      
+        });
         
-        var oPage = new sap.m.Page({
+        //2.globally unique ID of an element
+//        var oTable = new sap.ui.table.Table("table", {
+//            width: "90%",
+//            title: "供应商列表",
+//            visibleRowCount: 2,
+//            firstVisibleRow: 0,
+//            editable: false,
+//            selectionMode: sap.ui.table.SelectionMode.Single,
+//            columns: oColumns
+//        });
+
+        oTable.bindRows("/Suppliers");
+        //oTable.bindAggregation("rows", "/Suppliers");
+        
+        //console.log("--------oTable--------");
+        //console.log(oTable);
+        
+        var oPage = new sap.m.Page("page",{
             title: "供应商",
             content: [oTable]
         });
+        
+        //console.log("--------oPage--------");
+        //console.log(oPage);
         
         return oPage;
     }

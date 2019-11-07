@@ -20,6 +20,10 @@
 	         */
 	        function onAttributePressed(oEvent){
 	            jQuery.sap.require("sap.m.MessageBox");
+	            
+	            //console.log(oModel.getJSON());
+	            console.log(oModel);
+	            
 	            var sMessage = oEvent.getSource().getTitle() 
 	                + ":" + oModel.getProperty("/Price");
 	            sap.m.MessageBox.information(sMessage);

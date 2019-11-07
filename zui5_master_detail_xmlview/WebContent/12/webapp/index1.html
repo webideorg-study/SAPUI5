@@ -35,11 +35,14 @@
 	        sap.ui.getCore().setModel(oModel);
 	        
 	        var oObjIdentifier = new sap.m.ObjectIdentifier({
-	            title: "{/SupplierName}",
-	            text: "{/Profile}",
+	            //title: "{/SupplierName}",
+	            //text: "{/Profile}",
 	            titleActive: true,
 	            titlePress: onTitlePress
 	        });
+	        
+	        oObjIdentifier.bindProperty("title", "/SupplierName");
+	        oObjIdentifier.bindProperty("text", "/Profile");
 	        
 	        oObjIdentifier.placeAt("content");
 

@@ -7,6 +7,23 @@ sap.ui.controller("suppliers.supplieroverview", {
 */
     onInit: function() {        
         var oModel = sap.ui.model.json.JSONModel('models/suppliers.json');
-        this.getView().setModel(oModel);
+        //第一种设置View与Model的绑定
+        //this.getView().setModel(oModel);
+        
+        //第二种设置Table与Model的绑定
+        //1.a view-local ID of an element
+        var oView = this.getView();
+        var oTable = oView.byId("firstPage2--table");
+        console.log("--------oView--------");
+        console.log(oView.toString());
+        
+        
+        //2.globally unique ID of an element
+        //var oTable = sap.ui.getCore().byId("table");
+        //console.log(oTable);
+        
+        
+        console.log(oTable.getId());
+        oTable.setModel(oModel);
     }
 });

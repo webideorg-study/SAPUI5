@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
+
+        <script src="../../resources/sap-ui-core.js"
+                id="sap-ui-bootstrap"
+                data-sap-ui-libs="sap.m"
+                data-sap-ui-theme="sap_bluecrystal">
+        </script>
+        
+        <!-- Application area -->
+        <script>
+            function display() {
+                var oButton = new sap.m.Button({text: "Click me."});
+                
+                oButton.attachPress(function() {
+//                     jQuery.sap.require("sap.m.MessageBox");
+//                     sap.ui.define("sap.m.MessageBox");
+//                     sap.m.MessageBox.information("Hello SAPUI5!", {                     
+//                         title: "SAPUI5 button test"
+//                     });
+
+                	  sap.ui.define(["sap/m/MessageBox"], function(MessageBox) {
+                		    MessageBox.show("Hello SAPUI5_1!", {
+                		        icon: MessageBox.Icon.INFORMATION,
+                		        title: "SAPUI5 button test"
+                		      });
+                		  });
+
+                });
+                
+                oButton.placeAt("content");
+            }
+            
+            sap.ui.getCore().attachInit(display);
+        </script>
+
+    </head>
+    <body class="sapUiBody" role="application">
+        <div id="content"></div>
+    </body>
+</html>

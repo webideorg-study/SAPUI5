@@ -16,6 +16,12 @@ sap.ui.define(["sap/ui/core/mvc/Controller"],
                 
                 // Table object add items
                 var oTable = this.getView().byId("table");
+                
+                
+                console.log("oTable Begin");
+                console.log(oTable);
+                console.log(oTable.getId());
+                console.log("oTable End");
                 oTable.bindItems({path: '/', factory: this.createCellsFactory});
             },
             

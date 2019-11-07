@@ -28,6 +28,7 @@
 	        ];
 	        
 	        var oModel = new sap.ui.model.json.JSONModel();
+	        //构建根节点为modelData的json
 	        oModel.setData({modelData: oAppData});
 	        //console.log(oModel);
 	        console.log(oModel.getJSON());
@@ -48,7 +49,7 @@
 	            new sap.m.Column({
 	                header : new sap.m.Label({text : "标记2"})
 	            })
-	        ]
+	        ];
 	        
 	        // 定义template, 每行包含3个cell
 	        var oColumnListItem = new sap.m.ColumnListItem({
@@ -63,13 +64,18 @@
 	                }),
 	                
 	                //Template方式绑定2--控件的bindXXX()方法 / 暂时没有找到对应的方法
+	                /*
+	                sap.m.ObjectMarker的资源库脚本ObjectMarker-dbg.js中关于属性text定义如下:
+									type: {type: "sap.m.ObjectMarkerType", group: "Misc"}
+									没有设置属性bindable : "bindable"
+									所以没有对应的bindType()方法
+	                */
 	                //new sap.m.ObjectMarker().bindObject({path: "type", mode: sap.ui.model.BindingMode.OneWay}),
 	                
 	                //Template方式绑定3--使用控件的类型化绑定方法
-	                /*new sap.m.ObjectMarker().bindProperty("type", {
-						                           path: "type",
-						                           mode: sap.ui.model.BindingMode.OneWay
-					}).setVisibility(sap.m.ObjectMarkerVisibility.IconOnly),*/
+	                /*new sap.m.ObjectMarker().bindProperty("type", { path: "type",
+						                                                        mode: sap.ui.model.BindingMode.OneWay
+					        }).setVisibility(sap.m.ObjectMarkerVisibility.IconOnly),*/
 	                
 	                new sap.m.ObjectMarker({
 	                    type: "{type}",
@@ -92,20 +98,22 @@
 	        });*/
 	        
 	        //聚合绑定2--使用sap.ui.base.ManagedObject的bindAggregation()方法
-            /*var oTable = new sap.m.Table({
-			    columns: aColumns
-			});
-			//oTable.bindAggregation("items", "/modelData", oColumnListItem);
-			oTable.bindAggregation("items", {path: "/modelData", template: oColumnListItem});*/
+          /*var oTable = new sap.m.Table({
+			       columns: aColumns
+			    });
+	        //oTable.bindAggregation("items", "/modelData", oColumnListItem);
+			    oTable.bindAggregation("items", {path: "/modelData", template: oColumnListItem});
+			    */
 	        
 	        //聚合绑定3--使用控件的类型化绑定方法
 	        var oTable = new sap.m.Table({
-			    columns: aColumns
-			});
-			//oTable.bindItems("/modelData", oColumnListItem);
-			oTable.bindItems({path: "/modelData", template: oColumnListItem});
-			//console.log(oTable);
-
+	        	  columns: aColumns
+			    });
+			    
+					//oTable.bindItems("/modelData", oColumnListItem);
+					oTable.bindItems({path: "/modelData", template: oColumnListItem});
+					//console.log(oTable);
+          
 	        var oTablePanel = new sap.m.Panel({
 	            headerText: "文章列表",
 	            content: oTable
@@ -122,7 +130,7 @@
 	            ]
 	        });
 	        
-	        var oApp = new sap.m.App({  initialPage: "page" });
+	        var oApp = new sap.m.App({ initialPage: "page" });
 	        var oPage = new sap.m.Page("page", {
 	            title:"Aggregation binding demo",
 	            content: [oTablePanel, oStandalonePanel]

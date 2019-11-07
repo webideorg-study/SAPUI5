@@ -56,28 +56,31 @@
 	        // 使用Factory function实现动态的数据显示
 	        //oTable.bindAggregation("items", "/modelData", function(sId, oContext){
             oTable.bindAggregation("items", {path: "/modelData", factory: function(sId, oContext){
-	            var oColumnListItem = new sap.m.ColumnListItem(sId, {vAlign: "Middle"});
-	            oColumnListItem.addCell(new sap.m.Text({text: "{articleName}"}));
-	            oColumnListItem.addCell(new sap.m.ObjectMarker({type: "{type}", visibility: sap.m.ObjectMarkerVisibility.IconOnly}));
-	            
-	            var oHits = oContext.getProperty("hits");   
-	            if (oHits >= 100) {
-	                oColumnListItem.addCell(
-	                    new sap.ui.layout.VerticalLayout({
-	                        content: [
-	                           new sap.m.Text({text: "{hits}"}),
-	                           new sap.m.ObjectStatus({text:"热门", state:"Success"})
-	                        ]
-	                    })
-	                )
-	            } else {
-	                oColumnListItem.addCell(
-	                    new sap.m.Text({text: "{hits}"})
-	                )       
-	            }
-	            
-	            return oColumnListItem;
-	        }
+			            var oColumnListItem = new sap.m.ColumnListItem(sId, {vAlign: "Middle"});
+			            oColumnListItem.addCell(new sap.m.Text({text: "{articleName}"}));
+			            oColumnListItem.addCell(new sap.m.ObjectMarker({type: "{type}", visibility: sap.m.ObjectMarkerVisibility.IconOnly}));
+			            
+			            console.log(oContext);
+			            console.log(oContext.toString());
+			            
+			            var oHits = oContext.getProperty("hits");   
+			            if (oHits >= 100) {
+			                oColumnListItem.addCell(
+			                    new sap.ui.layout.VerticalLayout({
+			                        content: [
+			                           new sap.m.Text({text: "{hits}"}),
+			                           new sap.m.ObjectStatus({text:"热门", state:"Success"})
+			                        ]
+			                    })
+			                )
+			            } else {
+			                oColumnListItem.addCell(
+			                    new sap.m.Text({text: "{hits}"})
+			                )       
+			            }
+			            
+			            return oColumnListItem;
+	             }
             });
 			
 			

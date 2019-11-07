@@ -56,11 +56,14 @@
                 firstVisibleRow: 0,
                 editable: false,
                 selectionMode: sap.ui.table.SelectionMode.Single,
-                columns: [oIdCol, oNameCol]
+                columns: [oIdCol, oNameCol],
+                rows: {path: "/Suppliers"} //聚合绑定方式1
             });
             
             oTable.setModel(oModel);
-            oTable.bindRows("/Suppliers");
+            
+            //聚合绑定方式2
+            //oTable.bindRows("/Suppliers");
             
             // define page & app
             var oPage = new sap.m.Page("masterpage", {  

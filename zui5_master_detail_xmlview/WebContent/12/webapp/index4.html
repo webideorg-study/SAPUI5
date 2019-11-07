@@ -27,7 +27,7 @@
 	            content: [
 	                new sap.m.ObjectMarker({
 	                    type: sap.m.ObjectMarkerType.Draft
-	                }),     
+	                }),
 	                
 	                new sap.m.ObjectMarker().setType(sap.m.ObjectMarkerType.Favorite),
 	                
@@ -36,12 +36,21 @@
 	                    press: onMarkerPressed
 	                }),
 	                
+	                // 注册事件处理方式一
+	                /*
 	                new sap.m.ObjectMarker({
 	                    type: sap.m.ObjectMarkerType.Locked,
 	                    press: function(oEvent){
-	                        sap.m.MessageToast.show(oEvent.getParameter("type"));
+	                        //sap.m.MessageToast.show(oEvent.getParameter("type"));
+	                        sap.m.MessageToast.show(oEvent.getSource().getType());
 	                    }
 	                }),
+	                */
+	                
+	                // 注册事件处理方式二
+	                new sap.m.ObjectMarker({
+	                    type: sap.m.ObjectMarkerType.Locked
+	                }).attachPress(onMarkerPressed),
 	                
 	                new sap.m.ObjectMarker().setType(sap.m.ObjectMarkerType.LockedBy),
 	                new sap.m.ObjectMarker().setType(sap.m.ObjectMarkerType.Unsaved),
