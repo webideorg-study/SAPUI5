@@ -28,7 +28,7 @@ sap.ui.define([
             metadata: {
                 "rootView": "webapp.view.App",
                 "config": {
-                    "serviceUrl": "webapp/service/data.json"
+                    "serviceUrl": "service/data.json"
                 }
             },
             

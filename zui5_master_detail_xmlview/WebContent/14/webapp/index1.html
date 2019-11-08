@@ -31,10 +31,16 @@
                     press: function(oEvent){
                         var oContext = oEvent.getSource().getBindingContext();
                         
+                        // 第一种方式
+                        oPrdDetailPanel.setBindingContext(oContext);
+                        
+                        
                         console.log(oContext);
                         var sPath = oContext.getPath();
                         console.log(sPath);
-                        oPrdDetailPanel.bindElement({path: sPath});
+                        // 第二种方式
+                        //oPrdDetailPanel.bindElement({path: sPath});
+                        
                         
                         //oContext为oModel一部分，也可以类似调用oModel.getProperty("/Price")
                         console.log(oContext.getProperty("ProductName"));
