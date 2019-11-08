@@ -52,7 +52,8 @@
                 tooltip: "长度1到15.",
                 label: new sap.ui.commons.Label({text: "名"}),
                 template: new sap.ui.commons.TextField().bindValue({
-                    path: "firstName", type: oStringType
+                    path: "firstName",
+                    type: oStringType
                 }),
                 sortProperty: "firstName",
                 filterProperty: "firstName"
@@ -63,7 +64,9 @@
                 tooltip: "长度1到15.",
                 label: new sap.ui.commons.Label({text: "姓"}),
                 template: new sap.ui.commons.TextField().bindValue({
-                    path: "lastName", type: oStringType}),
+                    path: "lastName",
+                    type: oStringType
+                }),
                 sortProperty: "lastName",
                 filterProperty: "lastName"
             }));
@@ -79,7 +82,9 @@
                 tooltip: "最大值8000",
                 label: new sap.ui.commons.Label({text: "薪资"}),
                 template: new sap.ui.commons.TextField().bindValue({
-                    path: "salary", type: oFloatType}),
+                    path: "salary",
+                    type: oFloatType
+                }),
                 sortProperty: "salary",
                 filterProperty: "salary"
             }));        

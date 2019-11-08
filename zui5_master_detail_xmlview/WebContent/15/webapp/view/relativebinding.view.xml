@@ -1,0 +1,15 @@
+<core:View xmlns:core="sap.ui.core" 
+           xmlns:mvc="sap.ui.core.mvc" 
+           xmlns="sap.m"
+           xmlns:html="http://www.w3.org/1999/xhtml">
+           
+    <Panel headerText="Company information" binding="{/company}">
+        <Label text="Company name"/>
+        <Input value="{name}" />
+        <Label text="Street"/>
+        <Input value="{street}" />
+        <Label text="City"/>
+        <Input value="{city}" />    
+    </Panel>
+    
+</core:View>
