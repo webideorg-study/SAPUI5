@@ -17,10 +17,17 @@ sap.ui.define(
                 
                 oApp.to(sPageId);
                 
+                //console.log(sap.ui.getCore().byId("__xmlview0--detailView").getId());
+                
                 // 设置detail page的bindingContext
                 var oContext = oEvent.getSource().getBindingContext();
                 var oDetailPage = oApp.getPage(sPageId);
-                oDetailPage.setBindingContext(oContext);
+                // 第一种方式
+                //oDetailPage.setBindingContext(oContext);
+                
+                // 第二种方式
+                var sPath = oContext.getPath();
+                oDetailPage.bindElement({path: sPath});
                 
             }
         });
