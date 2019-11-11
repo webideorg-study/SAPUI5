@@ -33,7 +33,7 @@
 	                    error : function() {
 	                        alert("Could not start server");
 	                    }
-			        });
+	                });
 	
 	                var initAppWithFakeRest = function(oData){
 	                    // initialize fake REST server
@@ -51,17 +51,17 @@
 	                    });
 	      
 	                    // use sinon.js to monkey-patch XmlHttpRequest
-	                     server.respondWith(restServer.getHandler());
-	    				
+	                    server.respondWith(restServer.getHandler());
+	                    
 	                    // initialize the UI component
-	    				new Shell({
-	    					app: new ComponentContainer({
-	    						height : "100%",
-	    						component : new Component({
-	    							id: "mvcAppComponent"
-	    						})
-	    					})
-	    				}).placeAt("content");
+					    				new Shell({
+					    					app: new ComponentContainer({
+					    						height : "100%",
+					    						component : new Component({
+					    							id: "mvcAppComponent"
+					    						})
+					    					})
+					    				}).placeAt("content");
 	                }
 				});
 			});
