@@ -30,9 +30,23 @@ sap.ui.define([
 				}
 			},
 			
-			_onObjectMatched: function (oEvent) {			
+			_onObjectMatched: function(oEvent) {			
 				var sPath = decodeURIComponent(oEvent.getParameter("arguments").supplierPath);
-				this.getView().bindElement({path: sPath});
+				//getParameters(arguments) -- key-value pair
+				console.log(oEvent.getParameter("arguments"));
+				console.log(oEvent.getParameter("arguments").supplierPath);
+				
+				// 第一种方式，视图绑定
+				//this.getView().bindElement({path: sPath});
+				
+				
+				//byId 方法的使用还是比较模糊
+				console.log(this.getView().getId());
+				console.log(this.getView().byId("details"));
+				console.log(sap.ui.getCore().byId("__xmlview2--details"));
+				
+				// 第二种方式，元素绑定
+				this.getView().byId("details").bindElement({path: sPath});
 			}
         
         });

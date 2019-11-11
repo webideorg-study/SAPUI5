@@ -4,7 +4,7 @@
            controllerName="webapp.controller.Detail" 
            xmlns:html="http://www.w3.org/1999/xhtml">
         
-    <Page title="{i18n>detailTitle}" showNavButton="true" navButtonPress="onNavPress">
+    <Page id="details" title="{i18n>detailTitle}" showNavButton="true" navButtonPress="onNavPress">
         <content>
         	
         	<!--
@@ -16,8 +16,8 @@
             -->
             
             <ObjectHeader title="{Name}" number="ID: {ID}">
-				<ObjectAttribute text="{Address/Street}, {Address/City}"/>
-			</ObjectHeader>
+				      <ObjectAttribute text="{Address/Street}, {Address/City}"/>
+			      </ObjectHeader>
         </content>
     </Page>
     

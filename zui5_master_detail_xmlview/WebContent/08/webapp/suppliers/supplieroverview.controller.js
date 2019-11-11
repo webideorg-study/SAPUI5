@@ -19,8 +19,8 @@ sap.ui.controller("suppliers.supplieroverview", {
         
         
         //2.globally unique ID of an element
-        //var oTable = sap.ui.getCore().byId("table");
-        //console.log(oTable);
+//        var oTable = sap.ui.getCore().byId("table");
+//        console.log(oTable);
         
         
         console.log(oTable.getId());

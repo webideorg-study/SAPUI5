@@ -22,6 +22,10 @@ sap.ui.define([
 	    		var oRouter = UIComponent.getRouterFor(this);
 	    		var oItem = oEvent.getSource();
 	    		var sPath = oItem.getBindingContext().getPath();
+	    		
+	    		//console.log(sPath);
+	    		//console.log(encodeURIComponent(sPath));
+	    		
 	    		oRouter.navTo("detail", {
 	    			 supplierPath: encodeURIComponent(sPath)
 	    		});
